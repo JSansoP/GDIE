@@ -3,3 +3,7 @@
     padding: 0px;
     border-radius: 10px;
 }
+#video-container{
+    background-color: rgb(158, 10, 216);
+    padding: 0px 0px 0px 200px;
+}
