@@ -782,7 +782,7 @@ input[type='checkbox'] {
 /*    04. Header     */
 /*********************/
 .header {
-	background-color: #ff4457;
+	background-color: #ff4454;
 }
 
 .header .header-content {
@@ -813,7 +813,7 @@ input[type='checkbox'] {
 	margin-left: 0.5rem;
 	border-color: #f3f7fd;
 	background-color: #f3f7fd;
-	color: #ff4457;
+	color: #ff4454;
 }
 
 .header .btn-solid-lg:hover {
@@ -828,13 +828,14 @@ input[type='checkbox'] {
 
 .header .btn-outline-lg:hover {
 	background-color: #f3f7fd;
-	color: #ff4457;
+	color: #ff4454;
 }
 
 .header-frame {
 	margin-top: -1px; /* To remove white margin in FF */
 	width: 100%;
 	height: 2.25rem;
+	color: #ff4454
 }
 
 
