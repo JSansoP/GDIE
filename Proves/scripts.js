@@ -7,7 +7,7 @@ function init() {
     if (video.canPlayType("video/mp4")) {
       video.src = "../../file_example_MP4_1920_18MG.mp4";
     }
-    video.setAttribute("height","500px")
+    video.setAttribute("height", "500px")
     //video.setAttribute("controls", "controls");
   } else {
     var div = document.getElementById("video-container");
@@ -15,13 +15,13 @@ function init() {
   }
 }
 
-function toggleVideo(){
-  var vid = document.getElementById("content"); 
+function toggleVideo() {
+  var vid = document.getElementById("content");
   var but = document.getElementById("toggleButton");
-  if(vid.paused){
+  if (vid.paused) {
     but.innerText = "Pause";
     vid.play();
-  } else{
+  } else {
     but.innerText = "Play";
     vid.pause();
   }
@@ -37,12 +37,36 @@ function pauseVid() {
   vid.pause();
 }
 
-function forward5(){
+function forward5() {
   var vid = document.getElementById("content");
   vid.currentTime = vid.currentTime + 5;
 }
 
-function back5(){
+function back5() {
   var vid = document.getElementById("video");
   vid.currentTime = vid.currentTime - 5;
+}
+
+function changeLanguage(language) {
+  var element = document.getElementById("url");
+  element.value = language;
+  element.innerHTML = language;
+}
+
+function showDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
 }
