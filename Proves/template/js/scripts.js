@@ -242,6 +242,7 @@
       }
     });
 
+
   function lsubmitForm() {
     // initiate variables with form content
     var email = $("#lemail").val();
@@ -441,6 +442,21 @@
     $(this).blur();
   });
 })(jQuery);
+
+function sendLocation(){
+  var inputElement = document.getElementById("video-location");
+  var location = inputElement.value;
+  setVideoOnEditor(location);
+  inputElement.hidden = true;
+  document.getElementById("send-location").hidden = true;
+}
+
+function setVideoOnEditor(location){
+  var video = document.getElementById("editor");
+  video.src = location;
+  video.hidden = false;
+}
+
 
 function init() {
   var video = document.getElementById("video-content");
