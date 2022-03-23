@@ -452,14 +452,20 @@ function sendLocation(){
 }
 
 function setVideoOnEditor(location){
-  var video = document.getElementById("editor");
+  var video = document.getElementById("editor-video");
   video.src = location;
   video.hidden = false;
+  var butdiv = document.getElementById("button-container")
+  butdiv.style.visibility = "visible";
+  // var buttons = document.getElementsByClassName("editor-element");
+  // for(var i = 0; i < buttons.length; i++){
+  //   buttons.item(i).style.visibility = "visible";
+  // }
 }
 
 
 function init() {
-  var video = document.getElementById("video-content");
+  var video = document.getElementById("editor-video");
   if (video.canPlayType) {
     if (video.canPlayType("video/ogg")) {
       video.src = "http://techslides.com/demos/sample-videos/small.ogv";
@@ -476,7 +482,7 @@ function init() {
 }
 
 function toggleVideo() {
-  var vid = document.getElementById("video-content");
+  var vid = document.getElementById("editor-video");
   var but = document.getElementById("toggleButton");
   if (vid.paused) {
     but.innerText = "Pause";
@@ -488,21 +494,23 @@ function toggleVideo() {
 }
 
 function playVid() {
-  var vid = document.getElementById("content");
+  var vid = document.getElementById("editor-video");
   vid.play();
 }
 
 function pauseVid() {
-  var vid = document.getElementById("content");
+  var vid = document.getElementById("editor-video");
   vid.pause();
 }
 
 function forward5() {
-  var vid = document.getElementById("content");
+  var vid = document.getElementById("editor-video");
   vid.currentTime = vid.currentTime + 5;
 }
 
 function back5() {
-  var vid = document.getElementById("video");
+  var vid = document.getElementById("editor-video");
   vid.currentTime = vid.currentTime - 5;
 }
+
+

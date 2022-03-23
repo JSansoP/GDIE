@@ -95,13 +95,6 @@
                             <p class="p-large">Reproductor de contenido audiovisual con editor semántico</p>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
-                    <div class="col-lg-6 col-xl-7">
-                        <div class="video-container" id="video-container">
-                            <div class="video-wrapper" id="video-container-1">
-                                <video src="" id="video-content"></video>
-                            </div>
-                        </div>
-                    </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
         </div> <!-- end of header-content -->
@@ -132,9 +125,25 @@
                         <div class="video-wrapper">
                             <input id="video-location" placeholder="Video Location"></input>
                             <button onClick="sendLocation()" id="send-location" class="btn btn-primary">Send</button>
-                            <video id="editor" class="basic-2" style="width: 75%; height: 75%" hidden="true">
+                            <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
                             </video>
                         </div>
+                        <dialog open class="editor-dialog">
+                            <div class="container">
+                                <h1 class="title">
+                                    Inserta metadatos
+                                </h1>
+                                <body>
+                                    aaaaa
+                                </body>
+                            </div>
+                        </dialog>
+                    </div>
+                    <div id="button-container">
+                        <button class="btn btn-secondary editor-element" onClick="back5()" type="button"> Back 5 seconds </button>
+                        <button class="btn btn-secondary editor-element" onClick="toggleVideo()" id="toggleButton"> Play </button>
+                        <button class="btn btn-secondary editor-element" onClick="forward5()" type="button"> Forward 5 seconds
+                        </button>
                     </div>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->

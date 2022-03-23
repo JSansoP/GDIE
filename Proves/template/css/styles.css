@@ -1352,3 +1352,21 @@ a:hover.back-to-top {
   /* end of extra pages */
 }
 /* end of min-width width 992px */
+
+/* .editor-element{
+  visibility: hidden;
+} */
+
+#button-container {
+  visibility: hidden;
+}
+
+.editor-dialog {
+  visibility: visible;
+  border: solid #e03647;
+  position: absolute;
+  top: 25%;
+  width: auto;
+  height: auto;
+  z-index: 10;
+}

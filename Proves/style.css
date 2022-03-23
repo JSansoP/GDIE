@@ -68,3 +68,7 @@
 .show {
   display: block;
 }
+
+button.editor{
+  visibility: hidden;
+}
