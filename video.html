@@ -18,7 +18,7 @@
 	<meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Valolytics - SaaS App HTML Landing Page Template</title>
+    <title>Valolytics</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -27,6 +27,11 @@
     <link href="css/swiper.css" rel="stylesheet">
 	<link href="css/magnific-popup.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
+
+    <!-- Reproductor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
+    <link href="css/main-video.css" rel="stylesheet">
+    <script src="js/main-video.js" defer></script>
 	
 	<!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
@@ -110,12 +115,28 @@
                     <!-- Video Preview -->
                     <div class="image-container">
                         <div class="video-wrapper">
-                            <a class="popup-youtube" href="https://www.youtube.com/watch?v=fLCjQJCekTs" data-effect="fadeIn">
-                                <img class="img-fluid" src="images/video-image.png" alt="alternative">
-                                <span class="video-play-button">
-                                    <span></span>
-                                </span>
-                            </a>
+
+
+                            <!-- Reproductor -->
+                            <main class="player">
+                                <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" poster="images/Untitled.png" class="video"></video>
+                                
+                                <!-- Controls -->
+                                <nav class="controls">
+                                    <button class="button play">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="button stop">
+                                        <i class="fas fa-stop"></i>
+                                    </button>
+                                    <input type="range" min="0" max="100" step="0.1" value="0" class="progress">
+                                    <small class="timestamp">
+                                        00:00
+                                    </small>
+                                </nav>
+                            </main>
+
+
                         </div> <!-- end of video-wrapper -->
                     </div> <!-- end of image-container -->
                     <!-- end of video preview -->
