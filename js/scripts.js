@@ -3,7 +3,6 @@
    Created: Sep 2019
    Description: Custom JS file
 */
-const fs = require("fs");
 
 class cue {
   constructor(id, inici, final, info) {
