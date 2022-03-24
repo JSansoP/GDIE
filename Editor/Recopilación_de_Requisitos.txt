@@ -2,14 +2,14 @@ Que metadatos queremos recoger/mostrar?
 Tipos:
 	- Esporádicos: Se presentan a intervalos irregulares
 		- Kills
-			- Muertes
-			- Assists
-			- Ace
-		- Ultis
+			- Muertes -> BOTON
+			- Assists -> BOTON
+			- Ace 	-> BOTON
+		- Ultis -> BOTON
 	- Circunstanciales: Son dependientes de las circunstancias de la partida --> La info tendrà que estar redactada para que el usuario solo tenga que escoger la opción
-		- Personaje del POV
-		- Arma del POV
-		- Mapa de la partida
+		- Personaje del POV -> ComboBox
+		- Arma del POV -> ComboBox
+		- Mapa de la partida -> ComboBox
 	- Fases: Fase en la que se encuentra la partida 
 		- Elección
 		- Preronda/Fase de compra
@@ -23,5 +23,29 @@ Para las circunstanciales JSON
 "map": "Ascent",
 }
 Y luego buscar la información de cada uno de los elementos en su correspondiente fichero de JSONs.
+Ejemplo
+
+{
+"agent": "Sova",
+"desc": "Sova es siberiano...",
+"agent_ref": "/sova.jpg",
+"habilidades":
+	{
+	"nombre": "Flecha",
+	"desc": "La flecha permite ver enemigos...",
+	"hab_ref": "/flecha_sova.jpg"
+	}
+}
+
+{
+"gun": "Phantom",
+"gun_ref": "/phantom.jpg"
+}
+
+{
+"map": "Ascent",
+"desc": "Situado en Marruecos,...",
+"map_ref": "/ascent.jpg
+}
 
 Para las fases habrá que usar los CHAPTERS
