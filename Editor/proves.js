@@ -12,7 +12,7 @@ class cue {
 
     toVttFormat() {
         if (this.id == null || this.inici == null || this.final == null || this.info == null) return "";
-        let cue = "id\n " + this.toHHMMSSttt(this.inici) + " -> " + this.toHHMMSSttt(this.final) + "\n" + this.info;
+        let cue = "id\n" + this.toHHMMSSttt(this.inici) + " --> " + this.toHHMMSSttt(this.final) + "\n" + this.info;
         return cue;
     }
 
@@ -28,6 +28,8 @@ class cue {
         if (miliseconds < 10) { miliseconds = "00" + miliseconds; }
         else if (miliseconds < 10) { miliseconds = "0" + miliseconds; }
 
-        return hours + ':' + minutes + ':' + seconds + ':' + miliseconds;
+        return hours + ':' + minutes + ':' + seconds + '.' + miliseconds;
     }
 }
+let prove = new cue("Agentes-1",0,21.7,"Sova");
+console.log(prove.toVttFormat());
