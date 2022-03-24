@@ -12,8 +12,7 @@ class cue {
 
     toVttFormat() {
         if (this.id == null || this.inici == null || this.final == null || this.info == null) return "";
-        let cue = "id\n" + this.toHHMMSSttt(this.inici) + " --> " + this.toHHMMSSttt(this.final) + "\n" + this.info;
-        return cue;
+        return "id\n" + this.toHHMMSSttt(this.inici) + " --> " + this.toHHMMSSttt(this.final) + "\n" + this.info;
     }
 
     toHHMMSSttt(sec_num) {

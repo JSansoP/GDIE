@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,7 +19,6 @@
     <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
     <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
     <meta property="og:type" content="article" />
-
     <!-- Website Title -->
     <title>Valolytics - SaaS App HTML Landing Page Template</title>
 
@@ -123,8 +123,8 @@
                     <!-- Video Preview -->
                     <div class="video-container">
                         <div class="video-wrapper">
-                            <input id="video-location" placeholder="Video Location"></input>
-                            <button onClick="sendLocation()" id="send-location" class="btn btn-primary">Send</button>
+                            <input id="video-location" class="video-send" placeholder="Video Location"></input>
+                            <button onClick="sendLocation()" id="send-location" class="btn btn-primary video-send">Send</button>
                             <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
                             </video>
                         </div>
@@ -139,11 +139,14 @@
                             </div>
                         </dialog>
                     </div>
-                    <div id="button-container">
-                        <button class="btn btn-secondary editor-element" onClick="back5()" type="button"> Back 5 seconds </button>
-                        <button class="btn btn-secondary editor-element" onClick="toggleVideo()" id="toggleButton"> Play </button>
-                        <button class="btn btn-secondary editor-element" onClick="forward5()" type="button"> Forward 5 seconds
-                        </button>
+                    <div id="button-container" class="editor-element">
+                        <button  id="back5" class="btn btn-secondary" type="button"> Back 5 seconds </button>
+                        <button class="btn btn-secondary" id="toggleButton"> Play </button>
+                        <button id="forward5" class="btn btn-secondary"  type="button"> Forward 5 seconds</button>
+                        <button class="btn btn-solid-reg" id="AddKill">Kill</button>
+                        <button class="btn btn-solid-reg" id="AddUltimate">Ultimate</button>
+                        <button class="btn btn-solid-reg" id="AddAce">Ace</button>
+                        <button class="btn btn-solid-reg" id="AddAssist">Assist</button>
                     </div>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -218,6 +221,7 @@
     <!-- end of footer -->
 
     <!-- Scripts -->
+    
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
@@ -227,5 +231,4 @@
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="js/scripts.js">init()</script> <!-- Custom scripts -->
 </body>
-
 </html>

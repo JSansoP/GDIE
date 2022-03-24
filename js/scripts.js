@@ -3,6 +3,64 @@
    Created: Sep 2019
    Description: Custom JS file
 */
+const fs = require("fs");
+
+class cue {
+  constructor(id, inici, final, info) {
+    this.id = id;
+    this.inici = inici;
+    this.final = final;
+    this.info = info;
+  }
+
+  setTempsFinal(final) {
+    this.final = final;
+  }
+
+  toVttFormat() {
+    if (
+      this.id == null ||
+      this.inici == null ||
+      this.final == null ||
+      this.info == null
+    )
+      return null;
+    return (
+      "id\n" +
+      this.toHHMMSSttt(this.inici) +
+      " --> " +
+      this.toHHMMSSttt(this.final) +
+      "\n" +
+      this.info
+    );
+  }
+
+  toHHMMSSttt(sec_num) {
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - hours * 3600) / 60);
+    var seconds = Math.floor(sec_num - hours * 3600 - minutes * 60);
+    var miliseconds = Math.floor(
+      (sec_num - hours * 3600 - minutes * 60 - seconds) * 1000
+    );
+
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    if (miliseconds < 10) {
+      miliseconds = "00" + miliseconds;
+    } else if (miliseconds < 10) {
+      miliseconds = "0" + miliseconds;
+    }
+
+    return hours + ":" + minutes + ":" + seconds + "." + miliseconds;
+  }
+}
 
 (function ($) {
   "use strict";
@@ -242,7 +300,6 @@
       }
     });
 
-
   function lsubmitForm() {
     // initiate variables with form content
     var email = $("#lemail").val();
@@ -443,7 +500,7 @@
   });
 })(jQuery);
 
-function sendLocation(){
+function sendLocation() {
   var inputElement = document.getElementById("video-location");
   var location = inputElement.value;
   setVideoOnEditor(location);
@@ -451,18 +508,13 @@ function sendLocation(){
   document.getElementById("send-location").hidden = true;
 }
 
-function setVideoOnEditor(location){
+function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
   video.src = location;
   video.hidden = false;
-  var butdiv = document.getElementById("button-container")
+  var butdiv = document.getElementById("button-container");
   butdiv.style.visibility = "visible";
-  // var buttons = document.getElementsByClassName("editor-element");
-  // for(var i = 0; i < buttons.length; i++){
-  //   buttons.item(i).style.visibility = "visible";
-  // }
 }
-
 
 function init() {
   var video = document.getElementById("editor-video");
@@ -481,36 +533,171 @@ function init() {
   }
 }
 
-function toggleVideo() {
+$("#toggleButton").click(function () {
   var vid = document.getElementById("editor-video");
-  var but = document.getElementById("toggleButton");
   if (vid.paused) {
-    but.innerText = "Pause";
+    this.innerText = "Pause";
     vid.play();
   } else {
-    but.innerText = "Play";
+    this.innerText = "Play";
     vid.pause();
+  }
+});
+
+var numKill = 1;
+var numAssist = 1;
+var numAce = 1;
+var numUlti = 1;
+var numAgents = 1;
+var numArm = 1;
+var numMap = 1;
+var currentAgent = "Sova";
+var cueOldAgent;
+var cueOldArm;
+var cueOldMap;
+
+$("#AddKill").click(function () {
+  var vid = document.getElementById("editor-video");
+  var cueKill = new cue(
+    `Kill-${numKill}`,
+    vid.currentTime - 1,
+    vid.currentTime + 1,
+    ""
+  );
+  vtt = cueKill.toVttFormat();
+  if (vtt != null) {
+    numKill++;
+    writeVtt(vtt);
+  }
+});
+
+$("#AddUltimate").click(function () {
+  var vid = document.getElementById("editor-video");
+  var ctime = vid.currentTime;
+  var cueUltimate = new cue(
+    `Ultimate-${numUlti}`,
+    ctime - 1,
+    ctime + 1,
+    currentAgent
+  );
+  vtt = cueUltimate.toVttFormat();
+  if (vtt != null) {
+    numUlti++;
+    writeVtt(vtt);
+  }
+});
+
+$("#AddAssist").click(function () {
+  var vid = document.getElementById("editor-video");
+  var cueAssist = new cue(
+    `Assist-${numAssist}`,
+    vid.currentTime - 1,
+    vid.currentTime + 1,
+    ""
+  );
+  vtt = cueAssist.toVttFormat();
+  if (vtt != null) {
+    numAssist++;
+    writeVtt(vtt);
+  }
+});
+
+$("#AddAce").click(function () {
+  var vid = document.getElementById("editor-video");
+  var cueAce = new cue(
+    `Ace-${numAce}`,
+    vid.currentTime - 1,
+    vid.currentTime + 1,
+    ""
+  );
+  vtt = cueAce.toVttFormat();
+  if (vtt != null) {
+    numAce++;
+    writeVtt(vtt);
+  }
+});
+
+// Falta posar a info quin agent és i canviar sa variable global currentAgent a nes que sigui
+$("#changeAgent").click(function () {
+  var vid = document.getElementById("editor-video");
+  if (numAgents == 1) {
+    cueOldAgent = new cue(`Agent-${numAgents}`, vid.currentTime, null, "");
+    numAgents++;
+  } else {
+    var cueCurrentAgent = new cue(
+      `Agent-${numAgents}`,
+      vid.currentTime,
+      null,
+      ""
+    );
+    cueOldAgent.setTempsFinal(vid.currentTime);
+    vtt = cueOldAgent.toVttFormat();
+    if (vtt != null) {
+      numAgents++;
+      cueOldAgent = cueCurrentAgent;
+      writeVtt(vtt);
+    }
+  }
+});
+
+// Falta posar a info quina arma és
+$("#changeArm").click(function () {
+  var vid = document.getElementById("editor-video");
+  if (numArm == 1) {
+    cueOldArm = new cue(`Arm-${numArm}`, vid.currentTime, null, "");
+    numArm++;
+  } else {
+    var cueCurrentArm = new cue(`Arm-${numArm}`, vid.currentTime, null, "");
+    cueOldArm.setTempsFinal(vid.currentTime);
+    vtt = cueOldArm.toVttFormat();
+    if (vtt != null) {
+      numArm++;
+      cueOldArm = cueCurrentArm;
+      writeVtt(vtt);
+    }
+  }
+});
+
+// Falta posar a info quin mapa és
+$("#changeMap").click(function () {
+  var vid = document.getElementById("editor-video");
+  if (numMap == 1) {
+    cueOldMap = new cue(`Map-${numMap}`, vid.currentTime, null, "");
+    numMap++;
+  } else {
+    var cueCurrentMap = new cue(`Map-${numMap}`, vid.currentTime, null, "");
+    cueOldMap.setTempsFinal(vid.currentTime);
+    vtt = cueOldMap.toVttFormat();
+    if (vtt != null) {
+      numMap++;
+      cueOldMap = cueCurrentMap;
+      writeVtt(vtt);
+    }
+  }
+});
+
+function writeVtt(vtt) {
+  
+  if (fs.access("info.vtt")) {
+    appendFile("info.vtt", vtt, function (err) {
+      if (err) throw err;
+      console.log("Saved!");
+    });
+  } else {
+    create("info.vtt", vtt, function (err) {
+      if (err) throw err;
+      console.log("Saved!");
+    });
   }
 }
 
-function playVid() {
-  var vid = document.getElementById("editor-video");
-  vid.play();
-}
-
-function pauseVid() {
-  var vid = document.getElementById("editor-video");
-  vid.pause();
-}
-
-function forward5() {
+$("#forward5").click(function () {
   var vid = document.getElementById("editor-video");
   vid.currentTime = vid.currentTime + 5;
-}
+  console.log(vid.currentTime);
+});
 
-function back5() {
+$("#back5").click(function () {
   var vid = document.getElementById("editor-video");
   vid.currentTime = vid.currentTime - 5;
-}
-
-
+});
