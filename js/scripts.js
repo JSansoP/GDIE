@@ -517,15 +517,16 @@ $("#AddAce").click(function () {
 // Falta posar a info quin agent és i canviar sa variable global currentAgent a nes que sigui
 $("#changeAgent").click(function () {
   var vid = document.getElementById("editor-video");
+  currentAgent=this.find(":selected");
   if (numAgents == 1) {
-    cueOldAgent = new cue(`Agent-${numAgents}`, vid.currentTime, null, "");
+    cueOldAgent = new cue(`Agent-${numAgents}`, vid.currentTime, null, currentAgent);
     numAgents++;
   } else {
     var cueCurrentAgent = new cue(
       `Agent-${numAgents}`,
       vid.currentTime,
       null,
-      ""
+      currentAgent
     );
     cueOldAgent.setTempsFinal(vid.currentTime);
     vtt = cueOldAgent.toVttFormat();
