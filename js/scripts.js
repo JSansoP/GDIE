@@ -25,7 +25,7 @@ class cue {
     )
       return null;
     return (
-      "id\n" +
+      this.id+"\n" +
       this.toHHMMSSttt(this.inici) +
       " --> " +
       this.toHHMMSSttt(this.final) +
@@ -428,6 +428,7 @@ function init() {
     var div = document.getElementById("video-container");
     div.innerHTML = "Video not supported by your browser.";
   }
+
 }
 
 $("#toggleButton").click(function () {
@@ -448,7 +449,7 @@ var numUlti = 1;
 var numAgents = 1;
 var numArm = 1;
 var numMap = 1;
-var currentAgent = "Sova";
+var currentAgent;
 var cueOldAgent;
 var cueOldArm;
 var cueOldMap;
@@ -475,7 +476,7 @@ $("#AddUltimate").click(function () {
     `Ultimate-${numUlti}`,
     ctime - 1,
     ctime + 1,
-    currentAgent
+    ""
   );
   vtt = cueUltimate.toVttFormat();
   if (vtt != null) {
@@ -515,9 +516,11 @@ $("#AddAce").click(function () {
 });
 
 // Falta posar a info quin agent és i canviar sa variable global currentAgent a nes que sigui
-$("#changeAgent").click(function () {
+$("#changeAgent").change(function () {
   var vid = document.getElementById("editor-video");
-  currentAgent=this.find(":selected");
+  currentAgent=$("#changeAgent option:selected").val();
+  if(currentAgent.localeCompare("None")==0) return;
+  console.log(currentAgent);
   if (numAgents == 1) {
     cueOldAgent = new cue(`Agent-${numAgents}`, vid.currentTime, null, currentAgent);
     numAgents++;
