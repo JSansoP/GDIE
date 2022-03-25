@@ -25,12 +25,14 @@ class cue {
     )
       return null;
     return (
-      this.id+"\n" +
+      this.id +
+      "\n" +
       this.toHHMMSSttt(this.inici) +
       " --> " +
       this.toHHMMSSttt(this.final) +
       "\n" +
-      this.info
+      this.info +
+      "\n"
     );
   }
 
@@ -155,7 +157,6 @@ class cue {
     },
   });
 
-
   /* Move Form Fields Label When User Types */
   // for input and textarea fields
   $("input, textarea").keyup(function () {
@@ -165,7 +166,6 @@ class cue {
       $(this).removeClass("notEmpty");
     }
   });
-
 
   function ssubmitForm() {
     // initiate variables with form content
@@ -271,8 +271,6 @@ class cue {
     $("#lmsgSubmit").removeClass().addClass(msgClasses).text(msg);
   }
 
-
-
   function nsubmitForm() {
     // initiate variables with form content
     var email = $("#nemail").val();
@@ -318,7 +316,6 @@ class cue {
     }
     $("#nmsgSubmit").removeClass().addClass(msgClasses).text(msg);
   }
-
 
   function psubmitForm() {
     // initiate variables with form content
@@ -411,25 +408,41 @@ function setVideoOnEditor(location) {
   video.hidden = false;
   var butdiv = document.getElementById("button-container");
   butdiv.style.visibility = "visible";
+  video.addEventListener('ended', (event) => {
+    cueOldAgent.setTempsFinal(video.currentTime);
+    vttAgent = cueOldAgent.toVttFormat();
+    if (vttAgent != null) {
+      writeVtt(vttAgent, "agent_weapon_map");
+    }
+    cueOldWeapon.setTempsFinal(video.currentTime);
+    vttWeapon = cueOldWeapon.toVttFormat();
+    if (vttWeapon != null) {
+      writeVtt(vttWeapon, "agent_weapon_map");
+    }
+    cueOldMap.setTempsFinal(video.currentTime);
+    vttMap = cueOldMap.toVttFormat();
+    if (vttMap != null) {
+      writeVtt(vttMap, "agent_weapon_map");
+    }
+  });
 }
 
-function init() {
-  var video = document.getElementById("editor-video");
-  if (video.canPlayType) {
-    if (video.canPlayType("video/ogg")) {
-      video.src = "http://techslides.com/demos/sample-videos/small.ogv";
-    }
-    if (video.canPlayType("video/mp4")) {
-      video.src = "../videos/file_example_MP4_1920_18MG.mp4";
-    }
-    video.setAttribute("height", "500px");
-    //video.setAttribute("controls", "controls");
-  } else {
-    var div = document.getElementById("video-container");
-    div.innerHTML = "Video not supported by your browser.";
-  }
-
-}
+// $(document).ready(function(){
+//   var video = document.getElementById("editor-video");
+//   if (video.canPlayType) {
+//     if (video.canPlayType("video/ogg")) {
+//       video.src = "http://techslides.com/demos/sample-videos/small.ogv";
+//     }
+//     if (video.canPlayType("video/mp4")) {
+//       video.src = "../videos/file_example_MP4_1920_18MG.mp4";
+//     }
+//     video.setAttribute("height", "500px");
+//     //video.setAttribute("controls", "controls");
+//   } else {
+//     var div = document.getElementById("video-container");
+//     div.innerHTML = "Video not supported by your browser.";
+//   }
+// })
 
 $("#toggleButton").click(function () {
   var vid = document.getElementById("editor-video");
@@ -447,11 +460,11 @@ var numAssist = 1;
 var numAce = 1;
 var numUlti = 1;
 var numAgents = 1;
-var numArm = 1;
+var numWeapon = 1;
 var numMap = 1;
 var currentAgent;
 var cueOldAgent;
-var cueOldArm;
+var cueOldWeapon;
 var cueOldMap;
 
 $("#AddKill").click(function () {
@@ -465,23 +478,18 @@ $("#AddKill").click(function () {
   vtt = cueKill.toVttFormat();
   if (vtt != null) {
     numKill++;
-    writeVtt(vtt);
+    writeVtt(vtt, "kill_ult_ace");
   }
 });
 
 $("#AddUltimate").click(function () {
   var vid = document.getElementById("editor-video");
   var ctime = vid.currentTime;
-  var cueUltimate = new cue(
-    `Ultimate-${numUlti}`,
-    ctime - 1,
-    ctime + 1,
-    ""
-  );
+  var cueUltimate = new cue(`Ultimate-${numUlti}`, ctime - 1, ctime + 1, "");
   vtt = cueUltimate.toVttFormat();
   if (vtt != null) {
     numUlti++;
-    writeVtt(vtt);
+    writeVtt(vtt, "kill_ult_ace");
   }
 });
 
@@ -496,7 +504,7 @@ $("#AddAssist").click(function () {
   vtt = cueAssist.toVttFormat();
   if (vtt != null) {
     numAssist++;
-    writeVtt(vtt);
+    writeVtt(vtt, "kill_ult_ace");
   }
 });
 
@@ -511,18 +519,23 @@ $("#AddAce").click(function () {
   vtt = cueAce.toVttFormat();
   if (vtt != null) {
     numAce++;
-    writeVtt(vtt);
+    writeVtt(vtt, "kill_ult_ace");
   }
 });
 
 // Falta posar a info quin agent és i canviar sa variable global currentAgent a nes que sigui
 $("#changeAgent").change(function () {
   var vid = document.getElementById("editor-video");
-  currentAgent=$("#changeAgent option:selected").val();
-  if(currentAgent.localeCompare("None")==0) return;
+  currentAgent = $("#changeAgent option:selected").val();
+  if (currentAgent.localeCompare("None") == 0) return;
   console.log(currentAgent);
   if (numAgents == 1) {
-    cueOldAgent = new cue(`Agent-${numAgents}`, vid.currentTime, null, currentAgent);
+    cueOldAgent = new cue(
+      `Agent-${numAgents}`,
+      vid.currentTime,
+      null,
+      currentAgent
+    );
     numAgents++;
   } else {
     var cueCurrentAgent = new cue(
@@ -536,52 +549,79 @@ $("#changeAgent").change(function () {
     if (vtt != null) {
       numAgents++;
       cueOldAgent = cueCurrentAgent;
-      writeVtt(vtt);
+      writeVtt(vtt, "agent_weapon_map");
     }
   }
 });
 
-// Falta posar a info quina arma és
-$("#changeArm").click(function () {
+// Falta posar a info quina weapona és
+$("#changeWeapon").change(function () {
   var vid = document.getElementById("editor-video");
-  if (numArm == 1) {
-    cueOldArm = new cue(`Arm-${numArm}`, vid.currentTime, null, "");
-    numArm++;
+  currentWeapon = $("#changeWeapon option:selected").val();
+  if (currentWeapon.localeCompare("None") == 0) return;
+  console.log(currentWeapon);
+  if (numWeapon == 1) {
+    cueOldWeapon = new cue(
+      `Weapon-${numWeapon}`,
+      vid.currentTime,
+      null,
+      currentWeapon
+    );
+    numWeapon++;
   } else {
-    var cueCurrentArm = new cue(`Arm-${numArm}`, vid.currentTime, null, "");
-    cueOldArm.setTempsFinal(vid.currentTime);
-    vtt = cueOldArm.toVttFormat();
+    var cueCurrentWeapon = new cue(
+      `Weapon-${numWeapon}`,
+      vid.currentTime,
+      null,
+      currentWeapon
+    );
+    cueOldWeapon.setTempsFinal(vid.currentTime);
+    vtt = cueOldWeapon.toVttFormat();
     if (vtt != null) {
-      numArm++;
-      cueOldArm = cueCurrentArm;
-      writeVtt(vtt);
+      numWeapon++;
+      cueOldWeapon = cueCurrentWeapon;
+      writeVtt(vtt, "agent_weapon_map");
     }
   }
 });
 
 // Falta posar a info quin mapa és
-$("#changeMap").click(function () {
+$("#changeMap").change(function () {
   var vid = document.getElementById("editor-video");
+  currentMap = $("#changeMap option:selected").val();
+  if (currentMap.localeCompare("None") == 0) return;
+  console.log(currentMap);
   if (numMap == 1) {
-    cueOldMap = new cue(`Map-${numMap}`, vid.currentTime, null, "");
+    cueOldMap = new cue(
+      `Map-${numMap}`,
+      vid.currentTime,
+      null,
+      currentMap
+    );
     numMap++;
   } else {
-    var cueCurrentMap = new cue(`Map-${numMap}`, vid.currentTime, null, "");
+    var cueCurrentMap = new cue(
+      `Map-${numMap}`,
+      vid.currentTime,
+      null,
+      currentMap
+    );
     cueOldMap.setTempsFinal(vid.currentTime);
     vtt = cueOldMap.toVttFormat();
     if (vtt != null) {
       numMap++;
       cueOldMap = cueCurrentMap;
-      writeVtt(vtt);
+      writeVtt(vtt, "agent_weapon_map");
     }
   }
 });
 
-function writeVtt(vtt) {
+function writeVtt(vtt, file) {
   var data = {
-    str: vtt
+    f: file,
+    str: vtt,
   };
-  $.post("php/writeVtt.php",data);
+  $.post("php/writeVtt.php", data);
   console.log("he posteado");
 }
 

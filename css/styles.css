@@ -336,6 +336,7 @@ select::-ms-expand {
   display: none; /* removes the ugly default down arrow on select form field in IE11 */
 }
 
+
 .form-control-textarea {
   display: block; /* used to eliminate a bottom gap difference between Chrome and IE/FF */
   width: 100%;
@@ -1353,9 +1354,9 @@ a:hover.back-to-top {
 }
 /* end of min-width width 992px */
 
-.editor-element{
+.editor-element {
   visibility: hidden;
-} 
+}
 
 /* #button-container {
   visibility: hidden;
@@ -1369,4 +1370,22 @@ a:hover.back-to-top {
   width: auto;
   height: auto;
   z-index: 10;
+}
+
+.selector-reg {
+  display: inline-block;
+  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
+  border: 0.125rem solid #ff4457;
+  border-radius: 2rem;
+  background-color: #ff4457;
+  color: #fff;
+  font: 700 0.875rem/0 "Open Sans", sans-serif;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.selector-reg:hover {
+  background-color: transparent;
+  color: #ff4457;
+  text-decoration: none;
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -124,7 +124,8 @@
                     <div class="video-container">
                         <div class="video-wrapper">
                             <input id="video-location" class="video-send" placeholder="Video Location"></input>
-                            <button onClick="sendLocation()" id="send-location" class="btn btn-primary video-send">Send</button>
+                            <button onClick="sendLocation()" id="send-location"
+                                class="btn btn-primary video-send">Send</button>
                             <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
                             </video>
                         </div>
@@ -133,6 +134,7 @@
                                 <h1 class="title">
                                     Inserta metadatos
                                 </h1>
+
                                 <body>
                                     aaaaa
                                 </body>
@@ -140,15 +142,15 @@
                         </dialog>
                     </div>
                     <div id="button-container" class="editor-element">
-                        <button  id="back5" class="btn btn-secondary" type="button"> Back 5 seconds </button>
+                        <button id="back5" class="btn btn-secondary" type="button"> Back 5 seconds </button>
                         <button class="btn btn-secondary" id="toggleButton"> Play </button>
-                        <button id="forward5" class="btn btn-secondary"  type="button"> Forward 5 seconds</button>
+                        <button id="forward5" class="btn btn-secondary" type="button"> Forward 5 seconds</button>
                         <button class="btn btn-solid-reg" id="AddKill">Kill</button>
                         <button class="btn btn-solid-reg" id="AddUltimate">Ultimate</button>
                         <button class="btn btn-solid-reg" id="AddAce">Ace</button>
                         <button class="btn btn-solid-reg" id="AddAssist">Assist</button>
-                        <select name="Agents" id="changeAgent">
-                            <option value="None"> </option>
+                        <select class="selector-reg" name="Agents" id="changeAgent">
+                            <option value="None">Select agent:</option>
                             <optgroup label="Controllers">
                                 <option id="astra" value="Astra">Astra</option>
                                 <option id="brimstone" value="Brimstone">Brimstone</option>
@@ -174,7 +176,49 @@
                                 <option id="cypher" value="Cypher">Cypher</option>
                                 <option id="killjoy" value="Killjoy">Killjoy</option>
                                 <option id="sage" value="Sage">Sage</option>
-                            </optgroup>                            
+                            </optgroup>
+                        </select>
+                        <select class="selector-reg" name="Weapons" id="changeWeapon">
+                            <option value="None">Select weapon:</option>
+                            <optgroup label="Arma de mano">
+                                <option value="Classic">Classic</option>
+                                <option value="Shorty">Shorty</option>
+                                <option value="Frenzy">Frenzy</option>
+                                <option value="Ghost">Ghost</option>
+                                <option value="Sheriff">Sheriff</option>
+                            </optgroup>
+                            <optgroup label="Subfusil">
+                                <option value="Stinger">Stinger</option>
+                                <option value="Spectre">Spectre</option>
+                            </optgroup>
+                            <optgroup label="Escopetas">
+                                <option value="Bucky">Bucky</option>
+                                <option value="Judge">Judge</option>
+                            </optgroup>
+                            <optgroup label="Rifles">
+                                <option value="Bulldog">Bulldog</option>
+                                <option value="Guardian">Guardian</option>
+                                <option value="Phantom">Phantom</option>
+                                <option value="Vandal">Vandal</option>
+                            </optgroup>
+                            <optgroup label="Fusiles">
+                                <option value="Marshall">Marshall</option>
+                                <option value="Operator">Operator</option>
+                            </optgroup>
+                            <optgroup label="Armas pesadas">
+                                <option value="Ares">Ares</option>
+                                <option value="Odin">Odin</option>
+                            </optgroup>
+                        </select>
+                        <select class="selector-reg" name="Map" id="changeMap">
+                            <option value="None">Select map</option> :</option>
+                            <option value="Ascent">Ascent</option>
+                            <option value="Bind">Bind</option>
+                            <option value="Breeze">Breeze</option>
+                            <option value="Fracture">Fracture</option>
+                            <option value="Haven">Haven</option>
+                            <option value="Icebox">Icebox</option>
+                            <option value="Split">Split</option>
                         </select>
                     </div>
                 </div> <!-- end of col -->
@@ -250,7 +294,7 @@
     <!-- end of footer -->
 
     <!-- Scripts -->
-    
+
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
@@ -259,8 +303,9 @@
     <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-    <script src="js/scripts.js" type="text/javascript">init()</script> <!-- Custom scripts -->
+    <script src="js/scripts.js" type="text/javascript"></script> <!-- Custom scripts -->
     <?php include("php/writeVtt.php"); ?>
 
 </body>
+
 </html>
