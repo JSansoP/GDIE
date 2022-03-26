@@ -338,19 +338,23 @@ select::-ms-expand {
 
 
 .form-control-textarea {
-  display: block; /* used to eliminate a bottom gap difference between Chrome and IE/FF */
+  display: inline-block; /* used to eliminate a bottom gap difference between Chrome and IE/FF */
   width: 100%;
-  height: 8rem; /* used instead of html rows to normalize height between Chrome and IE/FF */
-  padding-top: 1.25rem;
-  padding-left: 1.3125rem;
+  height: 2rem; /* used instead of html rows to normalize height between Chrome and IE/FF */
+  padding-top: 0.05rem;
+  padding-left: 0rem;
   border: 1px solid #c4d8dc;
   border-radius: 0.25rem;
-  background-color: #fff;
-  color: #555;
+  background-color: #ff4457;
+  color: #fff;
   font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
   transition: all 0.2s;
+  overflow:hidden;
 }
-
+.form-control-textarea::placeholder {
+  color: #fff;
+  font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
+}
 .form-control-input:focus,
 .form-control-select:focus,
 .form-control-textarea:focus {
