@@ -329,7 +329,7 @@ select {
   background-image: url("../images/down-arrow.png");
   background-position: 96% 50%;
   background-repeat: no-repeat;
-  outline: none;  
+  outline: none;
   border: none;
 
 }
@@ -1380,7 +1380,7 @@ a:hover.back-to-top {
 
 .selector-reg {
   display: inline-block;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
   border: 0.125rem solid #ff4457;
   border-radius: 2rem;
   background-color: #ff4457;
