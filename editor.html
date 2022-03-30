@@ -141,19 +141,23 @@
                             </div>
                         </dialog>
                     </div>
-                    <div id="button-container" class="editor-element">
-                        <button id="back5" class="btn btn-secondary" type="button"> Back 5 seconds </button>
+                    
+                    <button class="btn btn-solid-reg" id="delete-tracks";>Delete all metadata</button>
+
+                    <div id="button-container" class="editor-element" style="padding: 0.5rem">
+                        <button  class="btn btn-secondary" id="back5" type="button"> Back 5 seconds </button>
                         <button class="btn btn-secondary" id="toggleButton"> Play </button>
-                        <button id="forward5" class="btn btn-secondary" type="button"> Forward 5 seconds</button>
+                        <button class="btn btn-secondary" id="forward5"  type="button"> Forward 5 seconds</button>
                     </div>
                     <div id="kills-container" class="editor-element" style="padding: 0.5rem">
                         <button class="btn btn-solid-reg" id="AddKill">Kill</button>
                         <button class="btn btn-solid-reg" id="AddUltimate">Ultimate</button>
                         <button class="btn btn-solid-reg" id="AddAce">Ace</button>
                         <button class="btn btn-solid-reg" id="AddAssist">Assist</button>
+                        <button class="btn btn-solid-reg" id="addSpike">Spike Planted</button>
                     </div>
                     <div id="selector-container" class="editor-element" style="padding: 0.5rem">
-                        <select class="selector selector-reg" name="Agents" id="changeAgent">
+                        <select class="selector-reg" name="Agents" id="changeAgent">
                             <option value="None">Select agent:</option>
                             <optgroup label="Controllers">
                                 <option id="astra" value="Astra">Astra</option>
@@ -182,7 +186,7 @@
                                 <option id="sage" value="Sage">Sage</option>
                             </optgroup>
                         </select>
-                        <select class="selector selector-reg" name="Weapons" id="changeWeapon">
+                        <select class="selector-reg" name="Weapons" id="changeWeapon">
                             <option value="None">Select weapon:</option>
                             <optgroup label="Arma de mano">
                                 <option value="Classic">Classic</option>
@@ -214,7 +218,7 @@
                                 <option value="Odin">Odin</option>
                             </optgroup>
                         </select>
-                        <select class="selector selector-reg" name="Map" id="changeMap">
+                        <select class="selector-reg" name="Map" id="changeMap">
                             <option value="None">Select map</option> :</option>
                             <option value="Ascent">Ascent</option>
                             <option value="Bind">Bind</option>
@@ -226,12 +230,13 @@
                         </select>
                     </div>
                     <div id="subtitles-container" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="temps_inici" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
+                        <textarea id="initial-time" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
                             style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos"
                             maxlength="80" required="true" style="width: 50%"></textarea>
-                        <textarea id="temps_final" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
+                        <textarea id="final-time" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
                             style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <button class="btn btn-solid-reg" id="AddSubtitle">Save Subtitle</button>
                     </div>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
