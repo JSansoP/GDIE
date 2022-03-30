@@ -406,8 +406,10 @@ function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
   video.src = location;
   video.hidden = false;
-  var butdiv = document.getElementById("button-container");
-  butdiv.style.visibility = "visible";
+  document.getElementById("button-container").style.visibility = "visible";
+  document.getElementById("kills-container").style.visibility = "visible";
+  document.getElementById("selector-container").style.visibility = "visible";
+  document.getElementById("subtitles-container").style.visibility = "visible";
   video.addEventListener('ended', (event) => {
     cueOldAgent.setTempsFinal(video.currentTime);
     vttAgent = cueOldAgent.toVttFormat();
