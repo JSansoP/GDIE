@@ -1378,7 +1378,7 @@ a:hover.back-to-top {
   z-index: 10;
 }
 
-.selector-reg {
+.selector-reg{
   display: inline-block;
   padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
   border: 0.125rem solid #ff4457;
@@ -1398,6 +1398,16 @@ a:hover.back-to-top {
 .selector-reg:hover {
   background-color: transparent;
   color: #ff4457;
+  text-decoration: none;
+}
+
+#delete-tracks{
+  background-color: rgb(223, 5, 27);
+  visibility:hidden
+}
+#delete-tracks:hover{
+  background-color: transparent;
+  color: rgb(223, 5, 27);
   text-decoration: none;
 }
 

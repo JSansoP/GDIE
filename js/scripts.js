@@ -404,13 +404,15 @@ function sendLocation() {
 
 function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
-  video.src = location;
+  video.src = videoName = location;
   video.hidden = false;
   document.getElementById("button-container").style.visibility = "visible";
   document.getElementById("kills-container").style.visibility = "visible";
   document.getElementById("selector-container").style.visibility = "visible";
   document.getElementById("subtitles-container").style.visibility = "visible";
-  video.addEventListener('ended', (event) => {
+  document.getElementById("delete-tracks").style.visibility = "visible";
+
+  video.addEventListener("ended", (event) => {
     cueOldAgent.setTempsFinal(video.currentTime);
     vttAgent = cueOldAgent.toVttFormat();
     if (vttAgent != null) {
@@ -429,22 +431,7 @@ function setVideoOnEditor(location) {
   });
 }
 
-// $(document).ready(function(){
-//   var video = document.getElementById("editor-video");
-//   if (video.canPlayType) {
-//     if (video.canPlayType("video/ogg")) {
-//       video.src = "http://techslides.com/demos/sample-videos/small.ogv";
-//     }
-//     if (video.canPlayType("video/mp4")) {
-//       video.src = "../videos/file_example_MP4_1920_18MG.mp4";
-//     }
-//     video.setAttribute("height", "500px");
-//     //video.setAttribute("controls", "controls");
-//   } else {
-//     var div = document.getElementById("video-container");
-//     div.innerHTML = "Video not supported by your browser.";
-//   }
-// })
+
 
 $("#toggleButton").click(function () {
   var vid = document.getElementById("editor-video");
@@ -461,13 +448,20 @@ var numKill = 1;
 var numAssist = 1;
 var numAce = 1;
 var numUlti = 1;
+var numSpike = 1;
 var numAgents = 1;
 var numWeapon = 1;
 var numMap = 1;
+var numSubtitles = 1;
 var currentAgent;
 var cueOldAgent;
 var cueOldWeapon;
 var cueOldMap;
+var videoName;
+
+$("#delete-tracks").click(function () {
+
+});
 
 $("#AddKill").click(function () {
   var vid = document.getElementById("editor-video");
@@ -480,18 +474,32 @@ $("#AddKill").click(function () {
   vtt = cueKill.toVttFormat();
   if (vtt != null) {
     numKill++;
-    writeVtt(vtt, "kill_ult_ace");
+    writeVtt(vtt, "kill_ult_ace_spike");
+  }
+});
+
+$("#AddSpike").click(function () {
+  var vid = document.getElementById("editor-video");
+  var cueKill = new cue(
+    `Spike-${numKill}`,
+    vid.currentTime - 1,
+    vid.currentTime + 1,
+    ""
+  );
+  vtt = cueKill.toVttFormat();
+  if (vtt != null) {
+    numKill++;
+    writeVtt(vtt, "kill_ult_ace_spike");
   }
 });
 
 $("#AddUltimate").click(function () {
   var vid = document.getElementById("editor-video");
-  var ctime = vid.currentTime;
-  var cueUltimate = new cue(`Ultimate-${numUlti}`, ctime - 1, ctime + 1, "");
+  var cueUltimate = new cue(`Ultimate-${numUlti}`, vid.currentTime - 1, vid.currentTime + 1, "");
   vtt = cueUltimate.toVttFormat();
   if (vtt != null) {
     numUlti++;
-    writeVtt(vtt, "kill_ult_ace");
+    writeVtt(vtt, "kill_ult_ace_spike");
   }
 });
 
@@ -506,7 +514,7 @@ $("#AddAssist").click(function () {
   vtt = cueAssist.toVttFormat();
   if (vtt != null) {
     numAssist++;
-    writeVtt(vtt, "kill_ult_ace");
+    writeVtt(vtt, "kill_ult_ace_spike");
   }
 });
 
@@ -521,7 +529,7 @@ $("#AddAce").click(function () {
   vtt = cueAce.toVttFormat();
   if (vtt != null) {
     numAce++;
-    writeVtt(vtt, "kill_ult_ace");
+    writeVtt(vtt, "kill_ult_ace_spike");
   }
 });
 
@@ -594,12 +602,7 @@ $("#changeMap").change(function () {
   if (currentMap.localeCompare("None") == 0) return;
   console.log(currentMap);
   if (numMap == 1) {
-    cueOldMap = new cue(
-      `Map-${numMap}`,
-      vid.currentTime,
-      null,
-      currentMap
-    );
+    cueOldMap = new cue(`Map-${numMap}`, vid.currentTime, null, currentMap);
     numMap++;
   } else {
     var cueCurrentMap = new cue(
@@ -618,14 +621,41 @@ $("#changeMap").change(function () {
   }
 });
 
+//from a file path, get the file name
+function getFileName(path) {
+  var fileName = path.split("\\").pop();
+  return fileName;
+}
+
+
+
 function writeVtt(vtt, file) {
+  var vname = getFileName(videoName);
   var data = {
-    f: file,
+    f: `${videoName}-${file}`,
     str: vtt,
   };
   $.post("php/writeVtt.php", data);
   console.log("he posteado");
 }
+
+$("addSubtitle").click(function () {
+  var initial_time = $("#initial-time").val();
+  var final_time = $("#final-time").val();
+  var subtitle = $("subtitle").val();
+  var cueSubtitle = new cue(
+    `Subtitle-${numSubtitle}`,
+    initial_time,
+    final_time,
+    subtitle
+  );
+  var vtt = cueSubtitle.toVttFormat();
+  if (vtt != null) {
+    numSubtitle++;
+    writeVtt(vtt, "subtitle");
+  }
+});
+
 
 $("#forward5").click(function () {
   var vid = document.getElementById("editor-video");
