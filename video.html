@@ -112,36 +112,37 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <!-- Video Preview -->
-                    <div class="image-container">
-                        <div class="video-wrapper">
+                    <!-- Reproductor -->
+                    <main class="player">
+                        <video poster="images/Untitled.png" class="video">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                            <track src="data/kill_ult_ace.vtt" label="kda" kind="metadata" srclang="es" default>
+                        </video>
+                        
+                        <!-- Controls -->
+                        <nav class="controls">
+                            <button class="button play">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="button forward">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                            <i id="volume-icon" class="fa fa-volume-up"></i>
+                            <input type="range" min="0" max="100" value="50" class="volume">
+
+                            </button>
+                            <input type="range" min="0" max="100" step="0.1" value="0" class="progress">
+                            <small class="timestamp">
+                                00:00
+                            </small>
+                            <button class="button full">
+                                <i class="fa fa-expand" aria-hidden="true"></i>
+                            </button>
+                        </nav>
+                    </main>
+                    <!-- end of Reproductor -->
 
 
-                            <!-- Reproductor -->
-                            <main class="player">
-                                <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" poster="images/Untitled.png" class="video"></video>
-                                
-                                <!-- Controls -->
-                                <nav class="controls">
-                                    <button class="button play">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <button class="button stop">
-                                        <i class="fas fa-stop"></i>
-                                    </button>
-                                    <input type="range" min="0" max="100" step="0.1" value="0" class="progress">
-                                    <small class="timestamp">
-                                        00:00
-                                    </small>
-                                </nav>
-                            </main>
-
-
-                        </div> <!-- end of video-wrapper -->
-                    </div> <!-- end of image-container -->
-                    <!-- end of video preview -->
-
-                    <div class="p-heading">What better way to show off Valolytics marketing automation saas app than presenting you some great situations of each module and tool available to users in a video</div>        
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->

@@ -1,6 +1,6 @@
 /* Player */
 .player {
-  background-color: gray;
+  background-color: rgb(172, 168, 168);
   box-shadow: 2px 2px 1rem black;
   max-width: 1280px;
   min-width: 320px;
@@ -39,4 +39,33 @@
 
 .timestamp {
   font-size: 1.2rem;
+}
+
+.volume {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 10%; /* Full-width */
+  height: 10; /* Specified height */
+  border-radius: 5px;
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.volume:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.volume::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  border-radius: 50%;
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #b81803; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
