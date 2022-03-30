@@ -70,16 +70,14 @@ var timeWeapon;
 var numMap = 1;
 var timeMap;
 
-var numSubtitles = 1;
-
 var currentAgent;
-var OldAgent;
+var oldAgent;
 
 var currentWeapon;
-var OldWeapon;
+var oldWeapon;
 
 var currentMap;
-var OldMap;
+var oldMap;
 
 var videoName;
 
@@ -115,9 +113,9 @@ $("#AddUltimate").click(function () {
     var cue = new VTTCue(
         vid.currentTime - 1,
         vid.currentTime + 1,
-        `Ult-${numUlt}`);
+        `Ult-${numUlti}`);
     vid.textTracks[0].addCue(cue);
-    numUlt++;
+    numUlti++;
 
 });
 
@@ -149,16 +147,16 @@ $("#changeAgent").change(function () {
     console.log(currentAgent);
     if (numAgents == 1) {
         timeAgent = vid.currentTime;
-        OldAgent = currentAgent;
+        oldAgent = currentAgent;
         numAgents++;
     } else {
         var cue = new VTTcue(
             timeAgent,
             vid.currentTime,
-            `Agent-${OldAgent}`);
+            `Agent-${oldAgent}`);
         vid.textTracks[1].addCue(cue);
         timeAgent = vid.currentTime;
-        OldAgent = currentAgent;
+        oldAgent = currentAgent;
     }
 });
 
@@ -170,16 +168,16 @@ $("#changeWeapon").change(function () {
     console.log(currentWeapon);
     if (numWeapon == 1) {
         timeWeapon = vid.currentTime;
-        OldWeapon = currentWeapon;
+        oldWeapon = currentWeapon;
         numWeapon++;
     } else {
         var cue = new VTTcue(
             timeWeapon,
             vid.currentTime,
-            `Weapon-${OldWeapon}`);
+            `Weapon-${oldWeapon}`);
         vid.textTracks[2].addCue(cue);
         timeWeapon = vid.currentTime;
-        OldWeapon = currentWeapon;
+        oldWeapon = currentWeapon;
     }
 });
 
@@ -191,16 +189,16 @@ $("#changeMap").change(function () {
     console.log(currentMap);
     if (numMap == 1) {
         timeMap = vid.currentTime;
-        OldMap = currentMap;
+        oldMap = currentMap;
         numMap++;
     } else {
         var cue = new VTTcue(
             timeMap,
             vid.currentTime,
-            `Map-${OldMap}`);
+            `Map-${oldMap}`);
         vid.textTracks[3].addCue(cue);
         timeMap = vid.currentTime;
-        OldMap = currentMap;
+        oldMap = currentMap;
     }
 });
 
@@ -247,13 +245,13 @@ function setVideoOnEditor(location) {
     document.getElementById("delete-tracks").style.visibility = "visible";
 
     video.addEventListener("ended", (event) => {
-        cueOldAgent.setTempsFinal(video.currentTime);
-        vttAgent = cueOldAgent.toVttFormat();
+        cueoldAgent.setTempsFinal(video.currentTime);
+        vttAgent = cueoldAgent.toVttFormat();
         if (vttAgent != null) {
             writeVtt(vttAgent, "agent_weapon_map");
         }
-        cueOldWeapon.setTempsFinal(video.currentTime);
-        vttWeapon = cueOldWeapon.toVttFormat();
+        cueoldWeapon.setTempsFinal(video.currentTime);
+        vttWeapon = cueoldWeapon.toVttFormat();
         if (vttWeapon != null) {
             writeVtt(vttWeapon, "agent_weapon_map");
         }
