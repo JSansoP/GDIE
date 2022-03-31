@@ -23,13 +23,15 @@ fullButton.addEventListener("click", fullScreen)
 for (var i = 0; i < video.textTracks.length; i++) {
     if (video.textTracks[i].label == "kda") {
         kda = video.textTracks[i]
-        console.log(video.textTracks[i].cues)
     }
 }
-for (var i = 0; i < kda.cues.length; i++) {
-    console.log(kda.cues[i].startTime)
-}
 
+// print all texttrack cues
+function printCues() {
+    for (var i = 0; i < video.cues.length; i++) {
+        console.log(video.cues[i].text)
+    }
+}
 
 // Utility functions
 function playPauseVideo() {

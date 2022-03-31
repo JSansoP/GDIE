@@ -331,13 +331,11 @@ select {
   background-repeat: no-repeat;
   outline: none;
   border: none;
-
 }
 
 select::-ms-expand {
   display: none; /* removes the ugly default down arrow on select form field in IE11 */
 }
-
 
 .form-control-textarea {
   display: inline-block; /* used to eliminate a bottom gap difference between Chrome and IE/FF */
@@ -351,7 +349,7 @@ select::-ms-expand {
   color: #fff;
   font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
   transition: all 0.2s;
-  overflow:hidden;
+  overflow: hidden;
 }
 .form-control-textarea::placeholder {
   color: #fff;
@@ -1378,7 +1376,7 @@ a:hover.back-to-top {
   z-index: 10;
 }
 
-.selector-reg{
+.selector-reg {
   display: inline-block;
   padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
   border: 0.125rem solid #ff4457;
@@ -1401,13 +1399,22 @@ a:hover.back-to-top {
   text-decoration: none;
 }
 
-#delete-tracks{
+#delete-tracks {
   background-color: rgb(223, 5, 27);
-  visibility:hidden
+  visibility: hidden;
 }
-#delete-tracks:hover{
+#delete-tracks:hover {
   background-color: transparent;
   color: rgb(223, 5, 27);
   text-decoration: none;
 }
 
+#save-tracks {
+  background-color: rgb(5, 223, 59);
+  visibility: hidden;
+}
+#save-tracks:hover {
+  background-color: transparent;
+  color: rgb(5, 223, 59);
+  text-decoration: none;
+}
