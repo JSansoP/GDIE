@@ -98,13 +98,13 @@
     <div id="video" class="basic-2">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col nopadding">
 
                     <!-- Reproductor -->
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
                             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            <track id="sub" src="data/test.vtt" label="sub" kind="subtitles" mode="showing" srclang="en">
+                            <track src="data/agent.vtt" label="agent" kind="metadata" srclang="en">
                         </video>
                         
                         <!-- Controls -->
@@ -119,8 +119,13 @@
                         </nav>
                     </main>
                     <!-- end of Reproductor -->
-
                 </div> <!-- end of col -->
+                <div class="col-lg-2 nopadding">
+                    <div class="video-info">
+                        <b> Agent: </b>
+                        <img id="agent-image" alt="agent image" width="100" height="100" align="left">
+                    </div>
+                </div>
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of basic-2 -->

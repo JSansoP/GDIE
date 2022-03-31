@@ -13,14 +13,19 @@ const progressBar = document.querySelector("#progress-bar")
 const timestamp = document.querySelector("#timestamp")
 const fullButton = document.querySelector("#full-screen");
 
+const agentImage = document.querySelector("#agent-image")
+
 // main
 addListeners();
-video.textTracks[0].mode = 'showing';
-<<<<<<< Updated upstream
-console.log(video.textTracks[0])
-=======
-console.log(video.textTracks[0].cues)
->>>>>>> Stashed changes
+video.textTracks[0].mode = "showing"
+video.textTracks[0].addEventListener("cuechange", () => {
+    const activeCues = video.textTracks[0].activeCues;
+    console.log(activeCues[0].text)
+    if (activeCues.length > 0) {
+        agentImage.src = "resources/agents/" + activeCues[0].text + ".webp";
+    }
+})
+
 
 // add listeners function
 function addListeners() {

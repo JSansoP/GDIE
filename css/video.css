@@ -71,3 +71,16 @@
 .timestamp {
   font-size: 1.2rem;
 }
+
+.nopadding {
+  padding: 0;
+  margin: 0;
+}
+
+.video-info {
+  opacity: 1;
+  border: #000 solid 2px;
+  height: 88%;
+  width: 300px;
+  background-color: rgb(77, 77, 77);
+}
