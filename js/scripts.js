@@ -357,9 +357,6 @@ function getFileName(path) {
 }
 
 
-
-
-
 $("#forward5").click(function () {
   var vid = document.getElementById("editor-video");
   vid.currentTime = vid.currentTime + 5;
