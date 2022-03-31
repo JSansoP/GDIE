@@ -147,15 +147,7 @@ $("#changeMap").change(function () {
     }
 });
 
-function writeVtt(vtt, file) {
-    var vname = getFileName(videoName);
-    var data = {
-        f: `${file}`,
-        str: vtt,
-    };
-    $.post("php/writeVtt.php", data);
-    console.log("he posteado");
-}
+
 
 $("#add-subtitle").click(function () {
     var vid = document.getElementById("editor-video");
@@ -170,16 +162,6 @@ $("#add-subtitle").click(function () {
     vid.textTracks[2].addCue(cue);
 });
 
-// $("#save-tracks").click(function () {
-//     var vid = document.getElementById("editor-video");  
-//     for (var i = 0; i < vid.textTracks.length; i++) {
-//         for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
-//             var cue = vid.textTracks[i].cues[j];
-//             console.log(cue);
-//         }
-//     }
-// });
-// //save tracks in server
 $("#save-tracks").click(function () {
     var vid = document.getElementById("editor-video");
     var vtt = "";
@@ -192,6 +174,16 @@ $("#save-tracks").click(function () {
         vtt = "";
     }
 });
+
+function writeVtt(vtt, file) {
+    var vname = getFileName(videoName);
+    var data = {
+        f: `${file}`,
+        str: vtt,
+    };
+    $.post("php/writeVtt.php", data);
+    console.log("he posteado");
+}
 
 function sendLocation() {
     var inputElement = document.getElementById("video-location");
