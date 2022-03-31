@@ -15,6 +15,7 @@ const fullButton = document.querySelector("#full-screen");
 
 // main
 addListeners();
+video.textTracks[0].mode = 'showing';
 console.log(video.textTracks[0])
 
 // add listeners function

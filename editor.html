@@ -123,6 +123,9 @@
                             <button onClick="sendLocation()" id="send-location"
                                 class="btn btn-primary video-send">Send</button>
                             <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
+                                <track id="track-kills" kind="metadata" mode="showing"></track>
+                                <track id="track-agents" kind="metadata" mode="showing"></track>
+                                <track id="track-subtitles" kind="subtitles" mode="showing"></track>
                             </video>
                         </div>
                         <dialog open class="editor-dialog">
@@ -317,7 +320,7 @@
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
     <script src="js/scripts.js" type="text/javascript"></script> <!-- Custom scripts -->
-    <script src="js/scripts-editor.js" type="text/javascript"></script> <!-- Custom scripts -->
+    <script src="js/editor.js" type="text/javascript"></script> <!-- Custom scripts -->
     <?php include("php/writeVtt.php"); ?>
 
 </body>
