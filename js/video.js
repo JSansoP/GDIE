@@ -16,7 +16,11 @@ const fullButton = document.querySelector("#full-screen");
 // main
 addListeners();
 video.textTracks[0].mode = 'showing';
+<<<<<<< Updated upstream
 console.log(video.textTracks[0])
+=======
+console.log(video.textTracks[0].cues)
+>>>>>>> Stashed changes
 
 // add listeners function
 function addListeners() {
