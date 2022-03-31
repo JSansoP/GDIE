@@ -24,7 +24,7 @@ def main():
                 if count%2 == 0:
                     outputline = secondsToString(parseTime(line)) + " --> "+secondsToString(parseTime(line)+delayEndStart)+"\n"
                 else:
-                    outputline = line
+                    outputline = line + "\n"
                 count = count + 1
                 f2.write(outputline)
 
