@@ -3,28 +3,27 @@
 
 // Grab DOM elements
 const video = document.querySelector(".video");
-const playButton = document.querySelector(".play");
-const playButtonIcon = playButton.querySelector("i");
+const playButton = document.querySelector("#play");
+const playIcon = playButton.querySelector("i");
 const volumeIcon = document.querySelector("#volume-icon");
-const volumeSlider = document.querySelector(".volume")
-const progressBar = document.querySelector(".progress")
-const timestamp = document.querySelector(".timestamp")
-const fullButton = document.querySelector(".full");
+const volumeSlider = document.querySelector("#volume-slider")
+const progressBar = document.querySelector("#progress-bar")
+const timestamp = document.querySelector("#timestamp")
+const fullButton = document.querySelector("#full-screen");
 
-// Listen for events
-video.addEventListener("click", playPauseVideo);
-progressBar.addEventListener("change", setVideoProgress)
-playButton.addEventListener("click", playPauseVideo);
-volumeSlider.addEventListener("change", changeVolume);
-video.addEventListener("timeupdate", updateVideoProgress)
-fullButton.addEventListener("click", fullScreen)
+// main
+addListeners();
 
-// init texttrack
-for (var i = 0; i < video.textTracks.length; i++) {
-    if (video.textTracks[i].label == "kda") {
-        kda = video.textTracks[i]
-    }
+// add listeners function
+function addListeners() {
+    video.addEventListener("click", playPauseVideo);
+    progressBar.addEventListener("change", setVideoProgress)
+    playButton.addEventListener("click", playPauseVideo);
+    volumeSlider.addEventListener("mousemove", changeVolume);
+    video.addEventListener("timeupdate", updateVideoProgress)
+    fullButton.addEventListener("click", fullScreen)
 }
+
 
 // print all texttrack cues
 function printCues() {
@@ -35,22 +34,17 @@ function printCues() {
 
 // Utility functions
 function playPauseVideo() {
-    //   if (video.paused) {
-    //     video.play();
-    //   } else {
-    //     video.pause();
-    //   }
     video[video.paused ? "play" : "pause"]()
     playButtonToggleIcon()
 }
 
 function playButtonToggleIcon() {
     if (video.paused) {
-        playButtonIcon.classList.remove("fa-pause")
-        playButtonIcon.classList.add("fa-play")
+        playIcon.classList.remove("fa-pause")
+        playIcon.classList.add("fa-play")
     } else {
-        playButtonIcon.classList.remove("fa-play")
-        playButtonIcon.classList.add("fa-pause")
+        playIcon.classList.remove("fa-play")
+        playIcon.classList.add("fa-pause")
     }
 }
 
@@ -79,7 +73,7 @@ function updateVideoProgress() {
 }
 
 function changeVolume() {
-    console.log(volumeIcon)
+    console.log(volumeSlider.value)
     if (volumeSlider.value == 0) {
         volumeIcon.classList.remove("fa-volume-up")
         volumeIcon.classList.remove("fa-volume-down")
@@ -93,7 +87,7 @@ function changeVolume() {
         volumeIcon.classList.remove("fa-volume-down")
         volumeIcon.classList.add("fa-volume-up")
     }
-    video.volume = volumeSlider.value / 100;
+    video.volume = volumeSlider.value;
 }
 
 function fullScreen() {

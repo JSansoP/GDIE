@@ -2,6 +2,7 @@
 .player {
   background-color: rgb(172, 168, 168);
   box-shadow: 2px 2px 1rem black;
+  border-radius: 10px;
   max-width: 1280px;
   min-width: 320px;
 }
@@ -9,6 +10,7 @@
 .video {
   width: 100%;
   cursor: pointer;
+  background-color: rgb(77, 77, 77);
 }
 
 /* Controls */
@@ -31,14 +33,6 @@
 
 .button i {
   font-size: 2rem;
-}
-
-.progress {
-  flex-grow: 1;
-}
-
-.timestamp {
-  font-size: 1.2rem;
 }
 
 .volume {
@@ -68,4 +62,12 @@
   height: 10px; /* Slider handle height */
   background: #b81803; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+.progress {
+  flex-grow: 1;
+}
+
+.timestamp {
+  font-size: 1.2rem;
 }

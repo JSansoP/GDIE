@@ -18,11 +18,11 @@ video.addEventListener("timeupdate", updateVideoProgress)
 
 // Utility functions
 function playPauseVideo() {
-//   if (video.paused) {
-//     video.play();
-//   } else {
-//     video.pause();
-//   }
+    //   if (video.paused) {
+    //     video.play();
+    //   } else {
+    //     video.pause();
+    //   }
     video[video.paused ? "play" : "pause"]()
     playButtonToggleIcon()
 }
@@ -50,7 +50,7 @@ function setVideoProgress() {
 
 function updateVideoProgress() {
     progressBar.value = Number((video.currentTime / video.duration) * 100)
-    let minutes = Math.floor(video.currentTime / 60)    
+    let minutes = Math.floor(video.currentTime / 60)
     let seconds = Math.floor(video.currentTime % 60)
     if (minutes < 10) {
         minutes = "0" + minutes
