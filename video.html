@@ -104,14 +104,14 @@
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
                             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            <track src="data/kill_ult_ace.vtt" label="kda" kind="metadata" srclang="es" default>
+                            <track id="sub" src="data/test.vtt" label="sub" kind="subtitles" mode="showing" srclang="en">
                         </video>
                         
                         <!-- Controls -->
                         <nav class="controls">
-                            <button id="play" class="button"> <i class="fas fa-play"></i> </button>
+                            <button id="play" class="button"> <i id="play-icon" class="fas fa-play"></i> </button>
                             <button id="forward" class="button"> <i class="fas fa-step-forward"></i> </button>
-                            <i id="volume-icon" class="fas fa-volume-up"></i>
+                            <div style="width: 50px;"> <button id="mute" class="button"> <i id="volume-icon" class="fas fa-volume-up"></i> </button> </div>
                             <input id="volume-slider" class="volume" type="range" min="0" max="1" step="0.01" value="0.5">
                             <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1" value="0">
                             <small id="timestamp" class="timestamp"> 00:00 </small>
@@ -185,7 +185,7 @@
     <!-- Reproductor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
     <link href="css/main-video.css" rel="stylesheet">
-    <script src="js/main-video.js" defer></script>
+    <script src="js/video.js" defer></script>
 
 </body>
 </html>
