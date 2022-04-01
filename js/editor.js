@@ -38,14 +38,8 @@ $("#delete-tracks").click(function () {
 $("#AddKill").click(function () {
   var vid = document.getElementById("editor-video");
   var cue = new VTTCue(vid.currentTime, vid.currentTime + 1, `Kill-${numKill}`);
-  console.log(cue);
   vid.textTracks[0].addCue(cue);
-  var a = "antes de add cue";
-  console.log(a);
   addCueToDiv(cue, 0);
-  console.log('despres de add cue to div');
-  console.log(vid.textTracks);
-  console.log(vid.textTracks[0].cues);
   numKill++;
 });
 
@@ -250,15 +244,15 @@ function setVideoOnEditor(location) {
 
 
 function addCueToDiv(cue, num_track) {
-  console.log("estoy en cue to div")
-  console.log(num_track);
   var video = document.getElementById("editor-video");
   var div = document.createElement("div");
   var text = document.createTextNode(`${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
     }\n`);
+    
   var button = document.createElement("button");
   button.class = "btn btn-solid-reg";
   button.innerText = "Elimina Cue";
+
   button.addEventListener("click", function(){
     video.textTracks[num_track].removeCue(cue);
     div.remove();
