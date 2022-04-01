@@ -11,6 +11,7 @@
   width: 100%;
   cursor: pointer;
   background-color: rgb(77, 77, 77);
+  border-radius: 5px;
 }
 
 /* Controls */
@@ -80,20 +81,24 @@
 .video-info {
   opacity: 1;
   border: #000 solid 2px;
-  height: 88%;
+  height: 100%;
   width: 300px;
   background-color: rgb(77, 77, 77);
+  border-radius: 5px;
+  box-shadow: 2px 2px 1rem black;
+}
+
+.video-info h5 {
+  margin: 10px;
+  font-size: 1.2rem;
+  color: lightgray;
 }
 
 .agent-image {
   margin: 10px;
-  text-align: left;
-}
+  display: inline-block;
 
-.agent-image h5 {
-  margin: 10px;
-  font-size: 1.2rem;
-  color: lightgray;
+  text-align: center;
 }
 
 .agent-image img {
@@ -103,16 +108,17 @@
 }
 
 .agent-info {
-  text-align: right;
-}
-
-.agent-info h5 {
-  margin: 10px;
-  font-size: 1.2rem;
-  color: lightgray;
+  display: block;
+  display: inline-block;
+  text-align: center;
 }
 
 #agent-bio {
   color: lightgray;
   font-size: 0.8rem;
+  line-height: 15px;
+  text-align: center;
+}
+
+p#agent-bio {
 }

@@ -103,8 +103,11 @@
                     <!-- Reproductor -->
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                            <source src="Valorant_4K.mp4" type="video/mp4">
+                            <source src="Valorant_4K.mkv" type="video/mkv">
+                            <source src="Valorant_4K.avi" type="video/avi">
                             <track src="data/agent.vtt" label="agent" kind="metadata" srclang="en">
+                            <track src="data/map.vtt" label="map" kind="metadata" srclang="en">
                         </video>
                         
                         <!-- Controls -->
@@ -129,6 +132,10 @@
                         <div class="agent-info">
                             <h5 id="agent-name"> </h5>
                             <p id="agent-bio"> </p>
+                        </div>
+                        <div>
+                            <h5> Map: </h5>
+                            <img id="map-image" width="200" height="200">
                         </div>
                     </div>
                 </div>

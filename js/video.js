@@ -35,6 +35,7 @@ loadJSON(function (response) {
 const agentImage = document.querySelector("#agent-image")
 const agentName = document.querySelector("#agent-name")
 const agentBio = document.querySelector("#agent-bio")
+const mapImage = document.querySelector("#map-image")
 
 // main
 addListeners();
@@ -48,6 +49,16 @@ video.textTracks[0].addEventListener("cuechange", () => {
         agentName.textContent = agent;
         console.log(agentsData[agent])
         agentBio.textContent = agentsData[agent].bio;
+    }
+})
+
+video.textTracks[1].mode = "showing"
+video.textTracks[1].addEventListener("cuechange", () => {
+    const activeCues = video.textTracks[1].activeCues;
+    if (activeCues.length > 0) {
+        //agentImage.style = "display: block";
+        let map = activeCues[0].text
+        mapImage.src = "resources/maps/" + map + ".webp";
     }
 })
 
