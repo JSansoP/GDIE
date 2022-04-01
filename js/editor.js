@@ -11,15 +11,6 @@ var timeWeapon;
 var numMap = 1;
 var timeMap;
 
-var currentAgent;
-var oldAgent;
-
-var currentWeapon;
-var oldWeapon;
-
-var currentMap;
-var oldMap;
-
 var videoName;
 var pathMetadata = [];
 
@@ -84,61 +75,35 @@ $("#AddAce").click(function () {
   numAce++;
 });
 
-// Falta posar a info quin agent és i canviar sa variable global currentAgent a nes que sigui
-$("#changeAgent").change(function () {
+
+$("#add-weapon").click(function () {
   var vid = document.getElementById("editor-video");
-  currentAgent = $("#changeAgent option:selected").val();
-  if (currentAgent.localeCompare("None") == 0) return;
-  console.log(currentAgent);
-  if (numAgents == 1) {
-    timeAgent = vid.currentTime;
-    oldAgent = currentAgent;
-    numAgents++;
-  } else {
-    var cue = new VTTCue(timeAgent, vid.currentTime, `Agent-${oldAgent}`);
-    vid.textTracks[1].addCue(cue);
-    addCueToDiv(cue, 1);
-    timeAgent = vid.currentTime;
-    oldAgent = currentAgent;
-  }
+  var initial_time = convertTime($("#initial-time-weapon").val());
+  var final_time = convertTime($("#final-time-weapon").val());
+  var weapon = $("#changeWeapon option:selected").val();
+  var cue = new VTTCue(initial_time, final_time, weapon);
+  vid.textTracks[1].addCue(cue);
+  addCueToDiv(cue, 1);
 });
 
-// Falta posar a info quina weapona és
-$("#changeWeapon").change(function () {
+$("add-agent").click(function () {
   var vid = document.getElementById("editor-video");
-  currentWeapon = $("#changeWeapon option:selected").val();
-  if (currentWeapon.localeCompare("None") == 0) return;
-  console.log(currentWeapon);
-  if (numWeapon == 1) {
-    timeWeapon = vid.currentTime;
-    oldWeapon = currentWeapon;
-    numWeapon++;
-  } else {
-    var cue = new VTTCue(timeWeapon, vid.currentTime, `Weapon-${oldWeapon}`);
-    vid.textTracks[1].addCue(cue);
-    addCueToDiv(cue, 1);
-    timeWeapon = vid.currentTime;
-    oldWeapon = currentWeapon;
-  }
+  var initial_time = convertTime($("#initial-time-agent").val());
+  var final_time = convertTime($("#final-time-agent").val());
+  var agent = $("#changeAgent option:selected").val();
+  var cue = new VTTCue(initial_time, final_time, agent);
+  vid.textTracks[1].addCue(cue);
+  addCueToDiv(cue, 1);
 });
 
-// Falta posar a info quin mapa és
-$("#changeMap").change(function () {
+$("#add-map").click(function () {
   var vid = document.getElementById("editor-video");
-  currentMap = $("#changeMap option:selected").val();
-  if (currentMap.localeCompare("None") == 0) return;
-  console.log(currentMap);
-  if (numMap == 1) {
-    timeMap = vid.currentTime;
-    oldMap = currentMap;
-    numMap++;
-  } else {
-    var cue = new VTTCue(timeMap, vid.currentTime, `Map-${oldMap}`);
-    vid.textTracks[1].addCue(cue);
-    addCueToDiv(cue, 1);
-    timeMap = vid.currentTime;
-    oldMap = currentMap;
-  }
+  var initial_time = convertTime($("#initial-time-map").val());
+  var final_time = convertTime($("#final-time-map").val());
+  var map = $("#changeMap option:selected").val();
+  var cue = new VTTCue(initial_time, final_time, map);
+  vid.textTracks[1].addCue(cue);
+  addCueToDiv(cue, 1);
 });
 
 // convert from hh:mm:ss to seconds
@@ -150,8 +115,8 @@ function convertTime(time) {
 
 $("#add-subtitle").click(function () {
   var vid = document.getElementById("editor-video");
-  var initial_time = convertTime($("#initial-time").val());
-  var final_time = convertTime($("#final-time").val());
+  var initial_time = convertTime($("#initial-time-subtitle").val());
+  var final_time = convertTime($("#final-time-subtitle").val());
   var subtitle = $("subtitle").val();
   var cue = new VTTCue(initial_time, final_time, subtitle);
   vid.textTracks[2].addCue(cue);
@@ -199,7 +164,9 @@ function setVideoOnEditor(location) {
   video.hidden = false;
   document.getElementById("button-container").style.visibility = "visible";
   document.getElementById("kills-container").style.visibility = "visible";
-  document.getElementById("selector-container").style.visibility = "visible";
+  document.getElementById("selector-container-agent").style.visibility = "visible";
+  document.getElementById("selector-container-weapon").style.visibility = "visible";
+  document.getElementById("selector-container-map").style.visibility = "visible";
   document.getElementById("subtitles-container").style.visibility = "visible";
   document.getElementById("delete-tracks").style.visibility = "visible";
   document.getElementById("save-tracks").style.visibility = "visible";
@@ -245,6 +212,7 @@ function setVideoOnEditor(location) {
 
 function addCueToDiv(cue, num_track) {
   var video = document.getElementById("editor-video");
+  var cues_selector = document.getElementById("cues-selector");
   var div = document.createElement("div");
   var text = document.createTextNode(`${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
     }\n`);
@@ -252,7 +220,8 @@ function addCueToDiv(cue, num_track) {
   var button = document.createElement("button");
   button.class = "btn btn-solid-reg";
   button.innerText = "Elimina Cue";
-
+  button.visibility = "visible";
+  text.visibility ="visible";
   button.addEventListener("click", function(){
     video.textTracks[num_track].removeCue(cue);
     div.remove();
@@ -260,4 +229,5 @@ function addCueToDiv(cue, num_track) {
 
   div.appendChild(text);
   div.appendChild(button);
+  cues_selector.appendChild(div);
 }

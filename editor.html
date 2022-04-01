@@ -132,21 +132,7 @@
                                 </track>
                             </video>
                         </div>
-                        <dialog open class="editor-dialog">
-                            <div class="container">
-                                <h1 class="title">
-                                    Inserta metadatos
-                                </h1>
-
-                                <body>
-                                    aaaaa
-                                </body>
-                            </div>
-                        </dialog>
                     </div>
-
-                    <button class="btn btn-solid-reg" id="delete-tracks" ;>Delete all metadata</button>
-
                     <div id="button-container" class="editor-element" style="padding: 0.5rem">
                         <button class="btn btn-secondary" id="back5" type="button"> Back 5 seconds </button>
                         <button class="btn btn-secondary" id="toggleButton"> Play </button>
@@ -159,7 +145,9 @@
                         <button class="btn btn-solid-reg" id="AddAssist">Assist</button>
                         <button class="btn btn-solid-reg" id="AddSpike">Spike Planted</button>
                     </div>
-                    <div id="selector-container" class="editor-element" style="padding: 0.5rem">
+                    <div id="selector-container-agent" class="editor-element" style="padding: 0.5rem">
+                        <textarea id="initial-time-agent" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <select class="selector-reg" name="Agents" id="changeAgent">
                             <option value="None">Select agent:</option>
                             <optgroup label="Controllers">
@@ -189,6 +177,13 @@
                                 <option id="sage" value="sage">Sage</option>
                             </optgroup>
                         </select>
+                        <textarea id="final-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <button id="add-weapon" class="btn btn-solid-reg">Save agent</button>
+                    </div>
+                    <div id="selector-container-weapon" class="editor-element" style="padding: 0.5rem">
+                        <textarea id="initial-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <select class="selector-reg" name="Weapons" id="changeWeapon">
                             <option value="None">Select weapon:</option>
                             <optgroup label="Arma de mano">
@@ -221,6 +216,13 @@
                                 <option value="Odin">Odin</option>
                             </optgroup>
                         </select>
+                        <textarea id="final-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <button id="add-weapon" class="btn btn-solid-reg">Save weapon</button>
+                    </div>
+                    <div id="selector-container-map" class="editor-element" style="padding: 0.5rem">
+                        <textarea id="initial-time-map" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <select class="selector-reg" name="Map" id="changeMap">
                             <option value="None">Select map</option> :</option>
                             <option value="Ascent">Ascent</option>
@@ -231,23 +233,31 @@
                             <option value="Icebox">Icebox</option>
                             <option value="Split">Split</option>
                         </select>
+                        <textarea id="final-time-map" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
+                            style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <button id="add-map" class="btn btn-solid-reg">Save map</button>
                     </div>
                     <div id="subtitles-container" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="initial-time" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
-                            style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
-                        <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos"
-                            maxlength="80" required="true" style="width: 50%"></textarea>
-                        <textarea id="final-time" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
-                            style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <textarea id="initial-time-subtitle" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos" maxlength="80"
+                            required="true" style="width: 50%"></textarea>
+                        <textarea id="final-time-subtitle" class="form-control-textarea" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-subtitle" class="btn btn-solid-reg">Save Subtitle</button>
+                     
                     </div>
                     <div id="cues-selector">
-                        
+    
                     </div>
-                    <button id="save-tracks" class="btn btn-solid-reg" ;>Save all metadata</button>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
+                    <div>
+                        <button class="btn btn-solid-reg" id="delete-tracks" ;>Delete all metadata</button>
+                        <button id="save-tracks" class="btn btn-solid-reg" ;>Save all metadata</button>
+                    </div>
+                </div>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
     </div> <!-- end of basic-2 -->
     <!-- end of video -->
 
