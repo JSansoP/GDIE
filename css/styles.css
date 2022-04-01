@@ -264,16 +264,16 @@ a.white {
 
 /* IE10+ hack to solve lower label text position compared to the rest of the browsers */
 @media screen and (-ms-high-contrast: active),
-  screen and (-ms-high-contrast: none) {
+screen and (-ms-high-contrast: none) {
   .label-control {
     top: 0.9375rem;
   }
 }
 
-.form-control-input:focus + .label-control,
-.form-control-input.notEmpty + .label-control,
-.form-control-textarea:focus + .label-control,
-.form-control-textarea.notEmpty + .label-control {
+.form-control-input:focus+.label-control,
+.form-control-input.notEmpty+.label-control,
+.form-control-textarea:focus+.label-control,
+.form-control-textarea.notEmpty+.label-control {
   top: 0.125rem;
   opacity: 1;
   font-size: 0.75rem;
@@ -282,7 +282,8 @@ a.white {
 
 .form-control-input,
 .form-control-select {
-  display: block; /* needed for proper display of the label in Firefox, IE, Edge */
+  display: block;
+  /* needed for proper display of the label in Firefox, IE, Edge */
   width: 100%;
   padding-top: 1.0625rem;
   padding-bottom: 0.0625rem;
@@ -293,7 +294,8 @@ a.white {
   color: #555;
   font: 400 0.875rem/1.875rem "Open Sans", sans-serif;
   transition: all 0.2s;
-  -webkit-appearance: none; /* removes inner shadow on form inputs on ios safari */
+  -webkit-appearance: none;
+  /* removes inner shadow on form inputs on ios safari */
 }
 
 .form-control-select {
@@ -304,7 +306,7 @@ a.white {
 
 /* IE10+ hack to solve lower label text position compared to the rest of the browsers */
 @media screen and (-ms-high-contrast: active),
-  screen and (-ms-high-contrast: none) {
+screen and (-ms-high-contrast: none) {
   .form-control-input {
     padding-top: 1.25rem;
     padding-bottom: 0.75rem;
@@ -334,13 +336,16 @@ select {
 }
 
 select::-ms-expand {
-  display: none; /* removes the ugly default down arrow on select form field in IE11 */
+  display: none;
+  /* removes the ugly default down arrow on select form field in IE11 */
 }
 
 .form-control-textarea {
-  display: inline-block; /* used to eliminate a bottom gap difference between Chrome and IE/FF */
+  display: inline-block;
+  /* used to eliminate a bottom gap difference between Chrome and IE/FF */
   width: 100%;
-  height: 2rem; /* used instead of html rows to normalize height between Chrome and IE/FF */
+  height: 2rem;
+  /* used instead of html rows to normalize height between Chrome and IE/FF */
   padding-top: 0.05rem;
   padding-left: 0rem;
   border: 1px solid #c4d8dc;
@@ -351,15 +356,18 @@ select::-ms-expand {
   transition: all 0.2s;
   overflow: hidden;
 }
+
 .form-control-textarea::placeholder {
   color: #fff;
   font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
 }
+
 .form-control-input:focus,
 .form-control-select:focus,
 .form-control-textarea:focus {
   border: 1px solid #a1a1a1;
-  outline: none; /* Removes blue border on focus */
+  outline: none;
+  /* Removes blue border on focus */
 }
 
 .form-control-input:hover,
@@ -379,7 +387,7 @@ input[type="checkbox"] {
 
 /* IE10+ hack to raise checkbox field position compared to the rest of the browsers */
 @media screen and (-ms-high-contrast: active),
-  screen and (-ms-high-contrast: none) {
+screen and (-ms-high-contrast: none) {
   input[type="checkbox"] {
     vertical-align: -9%;
   }
@@ -429,6 +437,7 @@ input[type="checkbox"] {
 .help-block.with-errors ul {
   margin-bottom: 0;
 }
+
 /* end of form success and error message formatting */
 
 /* Form Success And Error Message Animation - Animate.css */
@@ -438,12 +447,14 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
+
   10%,
   20% {
     -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
     -ms-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
     transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
   }
+
   30%,
   50%,
   70%,
@@ -452,6 +463,7 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
     transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
   }
+
   40%,
   60%,
   80% {
@@ -459,6 +471,7 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
     transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
   }
+
   to {
     -webkit-transform: scale3d(1, 1, 1);
     -ms-transform: scale3d(1, 1, 1);
@@ -472,12 +485,14 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
+
   10%,
   20% {
     -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
     -ms-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
     transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
   }
+
   30%,
   50%,
   70%,
@@ -486,6 +501,7 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
     transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
   }
+
   40%,
   60%,
   80% {
@@ -493,6 +509,7 @@ input[type="checkbox"] {
     -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
     transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
   }
+
   to {
     -webkit-transform: scale3d(1, 1, 1);
     -ms-transform: scale3d(1, 1, 1);
@@ -511,6 +528,7 @@ input[type="checkbox"] {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+
 /* end of form success and error message animation - Animate.css */
 
 /* Fade-move Animation For Details Lightbox - Magnific Popup */
@@ -549,10 +567,12 @@ input[type="checkbox"] {
 .my-mfp-slide-bottom.mfp-ready.mfp-bg {
   opacity: 0.8;
 }
+
 /* animate out */
 .my-mfp-slide-bottom.mfp-removing.mfp-bg {
   opacity: 0;
 }
+
 /* end of fade-move animation for details lightbox - magnific popup */
 
 /* Fade Animation For Image Lightbox - Magnific Popup */
@@ -560,6 +580,7 @@ input[type="checkbox"] {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -569,6 +590,7 @@ input[type="checkbox"] {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -583,6 +605,7 @@ input[type="checkbox"] {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -592,6 +615,7 @@ input[type="checkbox"] {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -601,6 +625,7 @@ input[type="checkbox"] {
   -webkit-animation: fadeOut 0.8s;
   animation: fadeOut 0.8s;
 }
+
 /* end of fade animation for image lightbox - magnific popup */
 
 /*************************/
@@ -618,15 +643,18 @@ input[type="checkbox"] {
 
 .spinner {
   position: absolute;
-  top: 50%; /* centers the loading animation vertically one the screen */
-  left: 50%; /* centers the loading animation horizontally one the screen */
+  top: 50%;
+  /* centers the loading animation vertically one the screen */
+  left: 50%;
+  /* centers the loading animation horizontally one the screen */
   width: 3.75rem;
   height: 1.25rem;
-  margin: -0.625rem 0 0 -1.875rem; /* is width and height divided by two */
+  margin: -0.625rem 0 0 -1.875rem;
+  /* is width and height divided by two */
   text-align: center;
 }
 
-.spinner > div {
+.spinner>div {
   display: inline-block;
   width: 1rem;
   height: 1rem;
@@ -647,17 +675,20 @@ input[type="checkbox"] {
 }
 
 @-webkit-keyframes sk-bouncedelay {
+
   0%,
   80%,
   100% {
     -webkit-transform: scale(0);
   }
+
   40% {
     -webkit-transform: scale(1);
   }
 }
 
 @keyframes sk-bouncedelay {
+
   0%,
   80%,
   100% {
@@ -665,6 +696,7 @@ input[type="checkbox"] {
     -ms-transform: scale(0);
     transform: scale(0);
   }
+
   40% {
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
@@ -747,7 +779,8 @@ input[type="checkbox"] {
 }
 
 .header-frame {
-  margin-top: -1px; /* To remove white margin in FF */
+  margin-top: -1px;
+  /* To remove white margin in FF */
   width: 100%;
   height: 2.25rem;
   color: #ff4454;
@@ -897,11 +930,13 @@ input[type="checkbox"] {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
     opacity: 0;
   }
 }
+
 /* end of video play button */
 
 .basic-2 .p-heading {
@@ -1078,6 +1113,7 @@ a:hover.back-to-top {
 /*****************************/
 /* Min-width width 768px */
 @media (min-width: 768px) {
+
   /* General Styles */
   .p-heading {
     width: 85%;
@@ -1100,18 +1136,22 @@ a:hover.back-to-top {
   .header-frame {
     height: 5.5rem;
   }
+
   /* end of header */
 
   /* Footer */
   .footer-frame {
     height: 5rem;
   }
+
   /* end of footer */
 }
+
 /* end of min-width width 768px */
 
 /* Min-width width 992px */
 @media (min-width: 992px) {
+
   /* Navigation */
   .navbar-custom {
     padding: 2.125rem 1.5rem 2.125rem 2rem;
@@ -1170,6 +1210,7 @@ a:hover.back-to-top {
     margin-bottom: 0;
     margin-left: 1rem;
   }
+
   /* end of navigation */
 
   /* General Styles */
@@ -1180,6 +1221,7 @@ a:hover.back-to-top {
   .h2-heading {
     width: 60%;
   }
+
   /* end of general styles */
 
   /* Header */
@@ -1206,6 +1248,7 @@ a:hover.back-to-top {
   .header-frame {
     height: 8rem;
   }
+
   /* end of header */
 
   /* Description */
@@ -1221,6 +1264,7 @@ a:hover.back-to-top {
   .cards-1 .card-image {
     width: 9rem;
   }
+
   /* end of description */
 
   /* Features */
@@ -1244,6 +1288,7 @@ a:hover.back-to-top {
   .tabs .image-container {
     margin-bottom: 0;
   }
+
   /* end of features */
 
   /* Features Lightboxes */
@@ -1262,6 +1307,7 @@ a:hover.back-to-top {
   .lightbox-basic h3 {
     margin-top: 0.5rem;
   }
+
   /* end of features lightboxes */
 
   /* Details */
@@ -1272,6 +1318,7 @@ a:hover.back-to-top {
   .basic-1 .text-container {
     margin-bottom: 0;
   }
+
   /* end of details */
 
   /* Video */
@@ -1286,6 +1333,7 @@ a:hover.back-to-top {
     margin-right: auto;
     margin-left: auto;
   }
+
   /* end of video */
 
   /* Pricing */
@@ -1295,6 +1343,7 @@ a:hover.back-to-top {
     margin-left: 0.5rem;
     vertical-align: top;
   }
+
   /* end of pricing */
 
   /* Testimonials */
@@ -1322,6 +1371,7 @@ a:hover.back-to-top {
   .slider-2 .swiper-button-next {
     right: -0.75rem;
   }
+
   /* end of testimonials */
 
   /* Newsletter */
@@ -1342,6 +1392,7 @@ a:hover.back-to-top {
     margin-right: 9rem;
     margin-left: 9rem;
   }
+
   /* end of newsletter */
 
   /* Extra Pages */
@@ -1354,8 +1405,10 @@ a:hover.back-to-top {
   .ex-basic-2 {
     padding-bottom: 5rem;
   }
+
   /* end of extra pages */
 }
+
 /* end of min-width width 992px */
 
 .editor-element {
@@ -1393,6 +1446,7 @@ a:hover.back-to-top {
   color: #ff4457;
   text-decoration: none;
 }
+
 .selector-reg:hover {
   background-color: transparent;
   color: #ff4457;
@@ -1403,6 +1457,7 @@ a:hover.back-to-top {
   background-color: rgb(223, 5, 27);
   visibility: hidden;
 }
+
 #delete-tracks:hover {
   background-color: transparent;
   color: rgb(223, 5, 27);
@@ -1413,8 +1468,22 @@ a:hover.back-to-top {
   background-color: rgb(5, 223, 59);
   visibility: hidden;
 }
+
 #save-tracks:hover {
   background-color: transparent;
   color: rgb(5, 223, 59);
   text-decoration: none;
 }
+
+#cues-selector{
+  display: inline-block;
+  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
+  background-color: rgb(227, 240, 230);
+  border: 0.125rem solid #ff4457;
+  border-radius: 0.5rem;
+  overflow: auto;
+  max-height: 10rem;
+  width: 100%;
+  visibility: hidden;
+}
+

@@ -39,8 +39,9 @@ $("#AddKill").click(function () {
   var vid = document.getElementById("editor-video");
   var cue = new VTTCue(vid.currentTime, vid.currentTime + 1, `Kill-${numKill}`);
   console.log(cue);
-//   vid.textTracks[0].mode="showing";
+  //   vid.textTracks[0].mode="showing";
   vid.textTracks[0].addCue(cue);
+  addCueToDiv(cue, 0);
   console.log(vid.textTracks);
   console.log(vid.textTracks[0].cues);
   numKill++;
@@ -54,6 +55,7 @@ $("#AddSpike").click(function () {
     `Spike-${numSpike}`
   );
   vid.textTracks[0].addCue(cue);
+  addCueToDiv(cue, 0);
   numSpike++;
 });
 
@@ -61,6 +63,7 @@ $("#AddUltimate").click(function () {
   var vid = document.getElementById("editor-video");
   var cue = new VTTCue(vid.currentTime, vid.currentTime + 1, `Ult-${numUlti}`);
   vid.textTracks[0].addCue(cue);
+  addCueToDiv(cue, 0);
   numUlti++;
 });
 
@@ -72,6 +75,7 @@ $("#AddAssist").click(function () {
     `Assist-${numAssist}`
   );
   vid.textTracks[0].addCue(cue);
+  addCueToDiv(cue, 0);
   numAssist++;
 });
 
@@ -79,6 +83,7 @@ $("#AddAce").click(function () {
   var vid = document.getElementById("editor-video");
   var cue = new VTTCue(vid.currentTime, vid.currentTime + 1, `Ace-${numAce}`);
   vid.textTracks[0].addCue(cue);
+  addCueToDiv(cue, 0);
   numAce++;
 });
 
@@ -95,6 +100,7 @@ $("#changeAgent").change(function () {
   } else {
     var cue = new VTTCue(timeAgent, vid.currentTime, `Agent-${oldAgent}`);
     vid.textTracks[1].addCue(cue);
+    addCueToDiv(cue, 1);
     timeAgent = vid.currentTime;
     oldAgent = currentAgent;
   }
@@ -113,6 +119,7 @@ $("#changeWeapon").change(function () {
   } else {
     var cue = new VTTCue(timeWeapon, vid.currentTime, `Weapon-${oldWeapon}`);
     vid.textTracks[1].addCue(cue);
+    addCueToDiv(cue, 1);
     timeWeapon = vid.currentTime;
     oldWeapon = currentWeapon;
   }
@@ -131,6 +138,7 @@ $("#changeMap").change(function () {
   } else {
     var cue = new VTTCue(timeMap, vid.currentTime, `Map-${oldMap}`);
     vid.textTracks[1].addCue(cue);
+    addCueToDiv(cue, 1);
     timeMap = vid.currentTime;
     oldMap = currentMap;
   }
@@ -150,6 +158,7 @@ $("#add-subtitle").click(function () {
   var subtitle = $("subtitle").val();
   var cue = new VTTCue(initial_time, final_time, subtitle);
   vid.textTracks[2].addCue(cue);
+  addCueToDiv(cue, 2);
 });
 
 $("#save-tracks").click(function () {
@@ -161,9 +170,8 @@ $("#save-tracks").click(function () {
       for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
         var cue = vid.textTracks[i].cues[j];
         console.log(cue);
-        vtt += `${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${
-          cue.text
-        }\n`;
+        vtt += `${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
+          }\n`;
       }
       writeVtt(vtt, pathMetadata[i]);
       vtt = "";
@@ -198,6 +206,7 @@ function setVideoOnEditor(location) {
   document.getElementById("subtitles-container").style.visibility = "visible";
   document.getElementById("delete-tracks").style.visibility = "visible";
   document.getElementById("save-tracks").style.visibility = "visible";
+  document.getElementById("cues-selector").style.visibility = "visible";
 
   video.addEventListener("ended", (event) => {
     cueoldAgent.setTempsFinal(video.currentTime);
@@ -234,4 +243,21 @@ function setVideoOnEditor(location) {
   track1.mode = "showing";
   track2.mode = "showing";
   track3.mode = "showing";
+}
+
+function addCueToDiv(cue, num_track) {
+  var video = document.getElementById("editor-video");
+  var div = document.createElement("div");
+  var text = document.createTextNode(`${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
+    }\n`);
+  var button = document.createElement("button");
+  button.class = "btn btn-solid-reg";
+  button.innerText = "Elimina Cue";
+  button.addEventListener("click", function(){
+    video.textTracks[num_track].removeCue(cue);
+    div.remove();
+  });
+
+  div.appendChild(text);
+  div.appendChild(button);
 }

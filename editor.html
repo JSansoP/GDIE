@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="Valolytics is a page for users to enjoy valorant content.">
     <meta name="author" content="Los Panas">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-	<meta property="og:site_name" content="Valolytics" /> <!-- website name -->
-	<meta property="og:site" content="https://alumnes-ltim.uib.es/gdie2211/index.html" /> <!-- website link -->
+    <meta property="og:site_name" content="Valolytics" /> <!-- website name -->
+    <meta property="og:site" content="https://alumnes-ltim.uib.es/gdie2211/index.html" /> <!-- website link -->
 
     <!-- Website Title -->
-    <title> Valolytics </title> 
-	<!-- Favicon  -->
+    <title> Valolytics </title>
+    <!-- Favicon  -->
     <link rel="icon" href="images/icon.png">
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
@@ -59,19 +61,18 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="index.html">
-                            Explicacion 
-                            <span class="sr-only">(current)</span
-                        ></a>
+                            Explicacion
+                            <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="video.html">
-                            Video 
+                            Video
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="editor.html">
-                            Editor metadatos 
+                            Editor metadatos
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -123,9 +124,12 @@
                             <button onClick="sendLocation()" id="send-location"
                                 class="btn btn-primary video-send">Send</button>
                             <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
-                                <track id="track-kills" kind="metadata" mode="showing"></track>
-                                <track id="track-agents" kind="metadata" mode="showing"></track>
-                                <track id="track-subtitles" kind="subtitles" mode="showing"></track>
+                                <track id="track-kills" kind="metadata" mode="showing">
+                                </track>
+                                <track id="track-agents" kind="metadata" mode="showing">
+                                </track>
+                                <track id="track-subtitles" kind="subtitles" mode="showing">
+                                </track>
                             </video>
                         </div>
                         <dialog open class="editor-dialog">
@@ -140,13 +144,13 @@
                             </div>
                         </dialog>
                     </div>
-                    
-                    <button class="btn btn-solid-reg" id="delete-tracks";>Delete all metadata</button>
+
+                    <button class="btn btn-solid-reg" id="delete-tracks" ;>Delete all metadata</button>
 
                     <div id="button-container" class="editor-element" style="padding: 0.5rem">
-                        <button  class="btn btn-secondary" id="back5" type="button"> Back 5 seconds </button>
+                        <button class="btn btn-secondary" id="back5" type="button"> Back 5 seconds </button>
                         <button class="btn btn-secondary" id="toggleButton"> Play </button>
-                        <button class="btn btn-secondary" id="forward5"  type="button"> Forward 5 seconds</button>
+                        <button class="btn btn-secondary" id="forward5" type="button"> Forward 5 seconds</button>
                     </div>
                     <div id="kills-container" class="editor-element" style="padding: 0.5rem">
                         <button class="btn btn-solid-reg" id="AddKill">Kill</button>
@@ -173,10 +177,10 @@
                                 <option id="yoru" value="yoru">Yoru</option>
                             </optgroup>
                             <optgroup label="Initiators">
-                                <option id="breach" value="breach">Breach</option>
-                                <option id="kay/o" value="kayo">KAY/O</option>
-                                <option id="skye" value="skye">Skye</option>
-                                <option id="sova" value="sova">Sova</option>
+                                <option id="breach" value="Breach">Breach</option>
+                                <option id="kay/o" value="KAYO">KAYO</option>
+                                <option id="skye" value="Skye">Skye</option>
+                                <option id="sova" value="Sova">Sova</option>
                             </optgroup>
                             <optgroup label="Sentinels">
                                 <option id="chamber" value="chamber">Chamber</option>
@@ -235,7 +239,10 @@
                             maxlength="80" required="true" style="width: 50%"></textarea>
                         <textarea id="final-time" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
                             style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
-                        <button id="add-subtitle" class="btn btn-solid-reg" >Save Subtitle</button>
+                        <button id="add-subtitle" class="btn btn-solid-reg">Save Subtitle</button>
+                    </div>
+                    <div id="cues-selector">
+                        
                     </div>
                     <button id="save-tracks" class="btn btn-solid-reg" ;>Save all metadata</button>
                 </div> <!-- end of col -->
