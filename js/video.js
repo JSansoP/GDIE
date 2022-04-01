@@ -13,16 +13,41 @@ const progressBar = document.querySelector("#progress-bar")
 const timestamp = document.querySelector("#timestamp")
 const fullButton = document.querySelector("#full-screen");
 
+
+// load json file
+function loadJSON(callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data/agents.json', true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+loadJSON(function (response) {
+    agentsData = JSON.parse(response).agents;
+    console.log(agentsData);
+});
+
 const agentImage = document.querySelector("#agent-image")
+const agentName = document.querySelector("#agent-name")
+const agentBio = document.querySelector("#agent-bio")
 
 // main
 addListeners();
 video.textTracks[0].mode = "showing"
 video.textTracks[0].addEventListener("cuechange", () => {
     const activeCues = video.textTracks[0].activeCues;
-    console.log(activeCues[0].text)
     if (activeCues.length > 0) {
-        agentImage.src = "resources/agents/" + activeCues[0].text + ".webp";
+        //agentImage.style = "display: block";
+        let agent = activeCues[0].text
+        agentImage.src = "resources/agents/" + agent + ".webp";
+        agentName.textContent = agent;
+        console.log(agentsData[agent])
+        agentBio.textContent = agentsData[agent].bio;
     }
 })
 

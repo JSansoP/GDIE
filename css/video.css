@@ -84,3 +84,35 @@
   width: 300px;
   background-color: rgb(77, 77, 77);
 }
+
+.agent-image {
+  margin: 10px;
+  text-align: left;
+}
+
+.agent-image h5 {
+  margin: 10px;
+  font-size: 1.2rem;
+  color: lightgray;
+}
+
+.agent-image img {
+  object-fit: cover;
+  background-color: aquamarine;
+  border: 2px solid black;
+}
+
+.agent-info {
+  text-align: right;
+}
+
+.agent-info h5 {
+  margin: 10px;
+  font-size: 1.2rem;
+  color: lightgray;
+}
+
+#agent-bio {
+  color: lightgray;
+  font-size: 0.8rem;
+}
