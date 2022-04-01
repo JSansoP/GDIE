@@ -348,6 +348,23 @@ select::-ms-expand {
   /* used instead of html rows to normalize height between Chrome and IE/FF */
   padding-top: 0.05rem;
   padding-left: 0rem;
+  border: 0.125rem solid #ff4457;
+  border-radius: 1.5rem;
+  background-color: #ff4457;
+  color: #fff;
+  font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
+  text-decoration: none;
+  transition: all 0.2s;
+  overflow: hidden;
+  position: relative;
+}
+
+/* .form-control-textarea {
+  display: inline-block;
+  width: 100%;
+  height: 2rem; 
+  padding-top: 0.05rem;
+  padding-left: 0rem;
   border: 1px solid #c4d8dc;
   border-radius: 0.25rem;
   background-color: #ff4457;
@@ -355,7 +372,7 @@ select::-ms-expand {
   font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
   transition: all 0.2s;
   overflow: hidden;
-}
+} */
 
 .form-control-textarea::placeholder {
   color: #fff;
@@ -1431,9 +1448,9 @@ a:hover.back-to-top {
 
 .selector-reg {
   display: inline-block;
-  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   border: 0.125rem solid #ff4457;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background-color: #ff4457;
   color: #fff;
   font: 700 0.875rem/1.25rem "Open Sans", sans-serif;
