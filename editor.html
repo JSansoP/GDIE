@@ -19,8 +19,7 @@
     <link rel="icon" href="images/icon.png">
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
@@ -87,10 +86,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-xl-5">
-                        <div class="text-container">
-                            <h1>Editor de Metadatos</h1>
-                            <p class="p-large">Reproductor de contenido audiovisual con editor semántico</p>
-                        </div> <!-- end of text-container -->
+                        <h1>Editor de Metadatos</h1>
+                        <p class="p-large">Reproductor de contenido audiovisual con editor semántico</p>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
@@ -120,25 +117,31 @@
                     <!-- Video Preview -->
                     <div class="video-container">
                         <div class="video-wrapper">
+                            <div> id="video-selector">
+                            </div>
                             <input id="video-location" class="video-send" placeholder="Video Location"></input>
                             <button onClick="sendLocation()" id="send-location"
                                 class="btn btn-primary video-send">Send</button>
-                            <video id="editor-video" class="basic-2" style="width: 75%; height: 75%" hidden="true">
-                                <track id="track-kills" kind="metadata" mode="showing">
-                                </track>
-                                <track id="track-agents" kind="metadata" mode="showing">
-                                </track>
-                                <track id="track-subtitles" kind="subtitles" mode="showing">
-                                </track>
-                            </video>
+                                <main id="player" class="player editor-element">
+                                    <video id="editor-video" class="video" poster="images/Untitled.png">
+                                        <track id="track-kills" kind="metadata" mode="showing"></track>
+                                        <track id="track-agents" kind="metadata" mode="showing"></track>
+                                        <track id="track-subtitles" kind="subtitles" mode="showing"></track>
+                                    </video>
+                                    <!-- Controls -->
+                                    <nav class="controls">
+                                        <button id="play" class="button"> <i id="play-icon" class="fas fa-play"></i> </button>
+                                        <button id="forward" class="button"> <i class="fas fa-step-forward"></i> </button>
+                                        <div style="width: 50px;"> <button id="mute" class="button"> <i id="volume-icon" class="fas fa-volume-up"></i> </button> </div>
+                                        <input id="volume-slider" class="volume" type="range" min="0" max="1" step="0.01" value="0.5">
+                                        <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1" value="0">
+                                        <small id="timestamp" class="timestamp"> 00:00 </small>
+                                        <button id="full-screen" class="button"> <i class="fa fa-expand" aria-hidden="true"></i> </button>
+                                    </nav>
+                                </main>
                         </div>
                     </div>
-                    <div id="button-container" class="editor-element" style="padding: 0.5rem">
-                        <button class="btn btn-secondary" id="back5" type="button"> Back 5 seconds </button>
-                        <button class="btn btn-secondary" id="toggleButton"> Play </button>
-                        <button class="btn btn-secondary" id="forward5" type="button"> Forward 5 seconds</button>
-                    </div>
-                    <div id="kills-container" class="editor-element" style="padding: 0.5rem">
+                    <div id="kills-container" class="editor-element" style="padding: 20px">
                         <button class="btn btn-solid-reg" id="AddKill">Kill</button>
                         <button class="btn btn-solid-reg" id="AddUltimate">Ultimate</button>
                         <button class="btn btn-solid-reg" id="AddAce">Ace</button>
@@ -146,9 +149,9 @@
                         <button class="btn btn-solid-reg" id="AddSpike">Spike Planted</button>
                     </div>
                     <div id="selector-container-agent" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="initial-time-agent" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="initial-time-agent" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
-                        <select class="selector-reg" name="Agents" id="changeAgent">
+                        <select id="changeAgent" class="selector-reg" name="Agents">
                             <option value="None">Select agent:</option>
                             <optgroup label="Controllers">
                                 <option id="Astra" value="astra">Astra</option>
@@ -177,12 +180,12 @@
                                 <option id="Sage" value="sage">Sage</option>
                             </optgroup>
                         </select>
-                        <textarea id="final-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="final-time-agent" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
-                        <button id="add-weapon" class="btn btn-solid-reg">Save agent</button>
+                        <button id="add-agent" class="btn btn-solid-reg">Save agent</button>
                     </div>
                     <div id="selector-container-weapon" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="initial-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="initial-time-weapon" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <select class="selector-reg" name="Weapons" id="changeWeapon">
                             <option value="None">Select weapon:</option>
@@ -216,12 +219,12 @@
                                 <option value="Odin">Odin</option>
                             </optgroup>
                         </select>
-                        <textarea id="final-time-weapon" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="final-time-weapon" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-weapon" class="btn btn-solid-reg">Save weapon</button>
                     </div>
                     <div id="selector-container-map" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="initial-time-map" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="initial-time-map" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <select class="selector-reg" name="Map" id="changeMap">
                             <option value="None">Select map</option> :</option>
@@ -233,19 +236,19 @@
                             <option value="Icebox">Icebox</option>
                             <option value="Split">Split</option>
                         </select>
-                        <textarea id="final-time-map" class="form-control-textarea" placeholder="hh:mm:ss" maxlength="8"
+                        <textarea id="final-time-map" class="form-control-textarea-time" placeholder="hh:mm:ss" maxlength="8"
                             style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-map" class="btn btn-solid-reg">Save map</button>
                     </div>
                     <div id="subtitles-container" class="editor-element" style="padding: 0.5rem">
-                        <textarea id="initial-time-subtitle" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="initial-time-subtitle" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos" maxlength="80"
                             required="true" style="width: 50%"></textarea>
-                        <textarea id="final-time-subtitle" class="form-control-textarea" placeholder="hh:mm:ss"
+                        <textarea id="final-time-subtitle" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-subtitle" class="btn btn-solid-reg">Save Subtitle</button>
-                     
+                    
                     </div>
                     <div id="cues-selector">
     
@@ -340,6 +343,10 @@
     <script src="js/editor.js" type="text/javascript"></script> <!-- Custom scripts -->
     <?php include("php/writeVtt.php"); ?>
 
+    <!-- Reproductor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
+    <link href="css/video.css" rel="stylesheet">
+    <script src="js/video.js" defer></script>
+    
 </body>
-
 </html>

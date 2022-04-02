@@ -22,6 +22,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/video.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
 </head>
 
@@ -98,8 +99,7 @@
     <div id="video" class="basic-2">
         <div class="container">
             <div class="row">
-                <div class="col nopadding">
-
+                <div class="col nopadding">                   
                     <!-- Reproductor -->
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
@@ -109,6 +109,7 @@
                             <source src="r/s.mp4" type="video/mp4">
                             <track src="data/agent.vtt" label="agent" kind="metadata" srclang="en">
                             <track src="data/map.vtt" label="map" kind="metadata" srclang="en">
+                            <track src="data/kills.vtt" label="kills" kind="metadata" srclang="en">
                         </video>
                         
                         <!-- Controls -->
@@ -117,14 +118,18 @@
                             <button id="forward" class="button"> <i class="fas fa-step-forward"></i> </button>
                             <div style="width: 50px;"> <button id="mute" class="button"> <i id="volume-icon" class="fas fa-volume-up"></i> </button> </div>
                             <input id="volume-slider" class="volume" type="range" min="0" max="1" step="0.01" value="0.5">
-                            <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1" value="0">
+                            <div class="progress-wrapper">
+                                <div id="breakpoint-wrapper" class="overlay">
+                                </div>
+                                <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1" value="0">
+                            </div>
                             <small id="timestamp" class="timestamp"> 00:00 </small>
                             <button id="full-screen" class="button"> <i class="fa fa-expand" aria-hidden="true"></i> </button>
                         </nav>
                     </main>
                     <!-- end of Reproductor -->
                 </div> <!-- end of col -->
-                <div class="col-lg-2 nopadding">
+                <div class="col-md-2 nopadding">
                     <div class="video-info">
                         <div class="agent-image">
                             <h5> Agent: </h5>
@@ -203,7 +208,6 @@
 
     <!-- Reproductor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
-    <link href="css/video.css" rel="stylesheet">
     <script src="js/video.js" defer></script>
 
 </body>

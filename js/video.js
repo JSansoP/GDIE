@@ -62,6 +62,20 @@ video.textTracks[1].addEventListener("cuechange", () => {
     }
 })
 
+video.textTracks[2].mode = "showing"
+video.addEventListener("loadedmetadata", manageKills)
+
+function manageKills() {
+    const bpWrapper = document.querySelector("#breakpoint-wrapper");
+    const div = document.createElement("div");
+    div.classList.add("breakpoint");
+    bpWrapper.appendChild(div);
+    for (let i = 0; i < video.textTracks[2].cues.length; i++) {
+        const div = document.createElement("div");
+        div.classList.add("breakpoint");
+        bpWrapper.appendChild(div);
+    }
+}
 
 // add listeners function
 function addListeners() {

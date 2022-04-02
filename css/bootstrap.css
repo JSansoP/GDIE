@@ -1991,7 +1991,7 @@ select.form-control[size], select.form-control[multiple] {
 }
 
 textarea.form-control {
-  height: auto;
+  /* height: auto; */
 }
 
 .form-group {

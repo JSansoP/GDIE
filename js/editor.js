@@ -1,3 +1,4 @@
+// Variables
 var numKill = 1;
 var numAssist = 1;
 var numAce = 1;
@@ -14,22 +15,74 @@ var timeMap;
 var videoName;
 var pathMetadata = [];
 
-$("#delete-tracks").click(function () {
-  var vid = document.getElementById("editor-video");
-  for (var i = 0; i < vid.textTracks.length; i++) {
-    if (vid.textTracks[i].cues != null) {
-      for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
-        var cue = vid.textTracks[i].cues[j];
-        vid.textTracks[i].removeCue(cue);
-      }
-    }
-  }
-});
 
+// Funciones iniciales
+
+function sendLocation() {
+  var inputElement = document.getElementById("video-location");
+  var location = inputElement.value;
+  setVideoOnEditor(location);
+  inputElement.hidden = true;
+  document.getElementById("send-location").hidden = true;
+}
+
+function setVideoOnEditor(location) {
+  var video = document.getElementById("editor-video");
+  video.src = videoName = location;
+  video.hidden = false;
+  document.getElementById("kills-container").style.visibility = "visible";
+  document.getElementById("selector-container-agent").style.visibility = "visible";
+  document.getElementById("selector-container-weapon").style.visibility = "visible";
+  document.getElementById("selector-container-map").style.visibility = "visible";
+  document.getElementById("subtitles-container").style.visibility = "visible";
+  document.getElementById("delete-tracks").style.visibility = "visible";
+  document.getElementById("save-tracks").style.visibility = "visible";
+  document.getElementById("cues-selector").style.visibility = "visible";
+  document.getElementById("player").style.visibility = "visible";
+
+  video.addEventListener("ended", (event) => {
+    cueoldAgent.setTempsFinal(video.currentTime);
+    vttAgent = cueoldAgent.toVttFormat();
+    if (vttAgent != null) {
+      writeVtt(vttAgent, "agent_weapon_map");
+    }
+    cueoldWeapon.setTempsFinal(video.currentTime);
+    vttWeapon = cueoldWeapon.toVttFormat();
+    if (vttWeapon != null) {
+      writeVtt(vttWeapon, "agent_weapon_map");
+    }
+    cueOldMap.setTempsFinal(video.currentTime);
+    vttMap = cueOldMap.toVttFormat();
+    if (vttMap != null) {
+      writeVtt(vttMap, "agent_weapon_map");
+    }
+  });
+  //if video is mp4 then replace .mp4 with varPaths
+  if (videoName.includes(".mp4")) {
+    pathMetadata[0] = location.replace(".mp4", "-metadataKills.vtt");
+    pathMetadata[1] = location.replace(".mp4", "-metadataAgents.vtt");
+    pathMetadata[2] = location.replace(".mp4", "-metadataSubtitles.vtt");
+  } else {
+    pathMetadata[0] = location.replace(".webm", "-metadataKills.vtt");
+    pathMetadata[1] = location.replace(".webm", "-metadataAgents.vtt");
+    pathMetadata[2] = location.replace(".webm", "-metadataSubtitles.vtt");
+  }
+
+  var track1 = video.textTracks[0];
+  var track2 = video.textTracks[1];
+  var track3 = video.textTracks[2];
+
+  track1.mode = "showing";
+  track2.mode = "showing";
+  track3.mode = "showing";
+}
+
+//JQuery track 0
 $("#AddKill").click(function () {
   var vid = document.getElementById("editor-video");
   var cue = new VTTCue(vid.currentTime, vid.currentTime + 1, `Kill-${numKill}`);
   vid.textTracks[0].addCue(cue);
+  console.log(cue);
   addCueToDiv(cue, 0);
   numKill++;
 });
@@ -75,7 +128,7 @@ $("#AddAce").click(function () {
   numAce++;
 });
 
-
+//JQuery track 1
 $("#add-weapon").click(function () {
   var vid = document.getElementById("editor-video");
   var initial_time = convertTime($("#initial-time-weapon").val());
@@ -86,9 +139,12 @@ $("#add-weapon").click(function () {
   addCueToDiv(cue, 1);
 });
 
-$("add-agent").click(function () {
+$("#add-agent").click(function () {
   var vid = document.getElementById("editor-video");
   var initial_time = convertTime($("#initial-time-agent").val());
+  console.log("a");
+  console.log($("#initial-time-agent").val());
+  console.log(initial_time);
   var final_time = convertTime($("#final-time-agent").val());
   var agent = $("#changeAgent option:selected").val();
   var cue = new VTTCue(initial_time, final_time, agent);
@@ -106,13 +162,7 @@ $("#add-map").click(function () {
   addCueToDiv(cue, 1);
 });
 
-// convert from hh:mm:ss to seconds
-function convertTime(time) {
-  var a = time.split(":");
-  var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
-  return seconds;
-}
-
+//JQuery track 2
 $("#add-subtitle").click(function () {
   var vid = document.getElementById("editor-video");
   var initial_time = convertTime($("#initial-time-subtitle").val());
@@ -123,8 +173,10 @@ $("#add-subtitle").click(function () {
   addCueToDiv(cue, 2);
 });
 
+//JQuery guardar y borrar tracks
 $("#save-tracks").click(function () {
   var vid = document.getElementById("editor-video");
+  var cues_selector = document.getElementById("cues-selector");
   var vtt = "";
   for (var i = 0; i < vid.textTracks.length; i++) {
     console.log(vid.textTracks[i]);
@@ -139,7 +191,46 @@ $("#save-tracks").click(function () {
       vtt = "";
     }
   }
+  cues_selector.replaceChildren();
 });
+
+$("#delete-tracks").click(function () {
+  var vid = document.getElementById("editor-video");
+  var cues_selector = document.getElementById("cues-selector");
+  for (var i = 0; i < vid.textTracks.length; i++) {
+    if (vid.textTracks[i].cues != null) {
+      for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
+        var cue = vid.textTracks[i].cues[j];
+        vid.textTracks[i].removeCue(cue);
+      }
+    }
+  }
+  cues_selector.replaceChildren();
+});
+
+
+// Funciones auxiliares
+function addCueToDiv(cue, num_track) {
+  var video = document.getElementById("editor-video");
+  var cues_selector = document.getElementById("cues-selector");
+  var div = document.createElement("div");
+  var text = document.createTextNode(`${reconvertTime(cue.startTime.toFixed(3))}\t${reconvertTime(cue.endTime.toFixed(3))}\t${cue.text
+    }\n`);
+
+  var button = document.createElement("button");
+  button.class = "btn btn-solid-reg";
+  button.innerText = "Elimina Cue";
+  button.visibility = "visible";
+  text.visibility = "visible";
+  button.addEventListener("click", function () {
+    video.textTracks[num_track].removeCue(cue);
+    div.remove();
+  });
+
+  div.appendChild(text);
+  div.appendChild(button);
+  cues_selector.appendChild(div);
+}
 
 function writeVtt(vtt, file) {
   var data = {
@@ -150,84 +241,25 @@ function writeVtt(vtt, file) {
   console.log("he posteado");
 }
 
-function sendLocation() {
-  var inputElement = document.getElementById("video-location");
-  var location = inputElement.value;
-  setVideoOnEditor(location);
-  inputElement.hidden = true;
-  document.getElementById("send-location").hidden = true;
+// convert from hh:mm:ss to seconds
+function convertTime(time) {
+  var a = time.split(":");
+  var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+  return seconds;
 }
 
-function setVideoOnEditor(location) {
-  var video = document.getElementById("editor-video");
-  video.src = videoName = location;
-  video.hidden = false;
-  document.getElementById("button-container").style.visibility = "visible";
-  document.getElementById("kills-container").style.visibility = "visible";
-  document.getElementById("selector-container-agent").style.visibility = "visible";
-  document.getElementById("selector-container-weapon").style.visibility = "visible";
-  document.getElementById("selector-container-map").style.visibility = "visible";
-  document.getElementById("subtitles-container").style.visibility = "visible";
-  document.getElementById("delete-tracks").style.visibility = "visible";
-  document.getElementById("save-tracks").style.visibility = "visible";
-  document.getElementById("cues-selector").style.visibility = "visible";
+// Convert from seconds to hh:mm:ss.ttt
+function reconvertTime(time) {
+  var hours = Math.floor(time / 3600);
+  var minutes = Math.floor((time - (hours * 3600)) / 60);
+  var seconds = Math.floor(time - (hours * 3600) - (minutes * 60));
+  var miliseconds = Math.floor((time - (hours * 3600) - (minutes * 60) - seconds) * 1000);
 
-  video.addEventListener("ended", (event) => {
-    cueoldAgent.setTempsFinal(video.currentTime);
-    vttAgent = cueoldAgent.toVttFormat();
-    if (vttAgent != null) {
-      writeVtt(vttAgent, "agent_weapon_map");
-    }
-    cueoldWeapon.setTempsFinal(video.currentTime);
-    vttWeapon = cueoldWeapon.toVttFormat();
-    if (vttWeapon != null) {
-      writeVtt(vttWeapon, "agent_weapon_map");
-    }
-    cueOldMap.setTempsFinal(video.currentTime);
-    vttMap = cueOldMap.toVttFormat();
-    if (vttMap != null) {
-      writeVtt(vttMap, "agent_weapon_map");
-    }
-  });
-  //if video is mp4 then replace .mp4 with varPaths
-  if (videoName.includes(".mp4")) {
-    pathMetadata[0] = location.replace(".mp4", "-metadataKills.vtt");
-    pathMetadata[1] = location.replace(".mp4", "-metadataAgents.vtt");
-    pathMetadata[2] = location.replace(".mp4", "-metadataSubtitles.vtt");
-  } else {
-    pathMetadata[0] = location.replace(".webm", "-metadataKills.vtt");
-    pathMetadata[1] = location.replace(".webm", "-metadataAgents.vtt");
-    pathMetadata[2] = location.replace(".webm", "-metadataSubtitles.vtt");
-  }
+  if (hours < 10) { hours = "0" + hours; }
+  if (minutes < 10) { minutes = "0" + minutes; }
+  if (seconds < 10) { seconds = "0" + seconds; }
+  if (miliseconds < 10) { miliseconds = "00" + miliseconds; }
+  else if (miliseconds < 10) { miliseconds = "0" + miliseconds; }
 
-  var track1 = video.textTracks[0];
-  var track2 = video.textTracks[1];
-  var track3 = video.textTracks[2];
-
-  track1.mode = "showing";
-  track2.mode = "showing";
-  track3.mode = "showing";
-}
-
-
-function addCueToDiv(cue, num_track) {
-  var video = document.getElementById("editor-video");
-  var cues_selector = document.getElementById("cues-selector");
-  var div = document.createElement("div");
-  var text = document.createTextNode(`${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
-    }\n`);
-    
-  var button = document.createElement("button");
-  button.class = "btn btn-solid-reg";
-  button.innerText = "Elimina Cue";
-  button.visibility = "visible";
-  text.visibility ="visible";
-  button.addEventListener("click", function(){
-    video.textTracks[num_track].removeCue(cue);
-    div.remove();
-  });
-
-  div.appendChild(text);
-  div.appendChild(button);
-  cues_selector.appendChild(div);
+  return hours + ':' + minutes + ':' + seconds + '.' + miliseconds;
 }

@@ -39,7 +39,7 @@
 .volume {
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
-  width: 10%; /* Full-width */
+  width: 15%; 
   height: 10; /* Specified height */
   border-radius: 5px;
   background: #d3d3d3; /* Grey background */
@@ -63,10 +63,6 @@
   height: 10px; /* Slider handle height */
   background: #b81803; /* Green background */
   cursor: pointer; /* Cursor on hover */
-}
-
-.progress {
-  flex-grow: 1;
 }
 
 .timestamp {
@@ -120,5 +116,33 @@
   text-align: center;
 }
 
-p#agent-bio {
+.progress-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.progress {
+  flex-grow: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 7;
+}
+
+.overlay {
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+
+.breakpoint {
+  width: Calc(100%/4);
+  z-index: 2;
+}
+
+.breakpoint:not(:first-child) {
+  border-left: 2px solid green;
 }

@@ -1,9 +1,3 @@
-/* Template: Valolytics - SaaS App HTML Landing Page Template
-   Author: Inovatik
-   Created: Sep 2019
-   Description: Master CSS file
-*/
-
 /*****************************************
 Table Of Contents:
 
@@ -150,7 +144,7 @@ a.white {
 
 .btn-solid-reg {
   display: inline-block;
-  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
+  padding: 1rem 2rem 1rem 2rem;
   border: 0.125rem solid #ff4457;
   border-radius: 2rem;
   background-color: #ff4457;
@@ -158,6 +152,7 @@ a.white {
   font: 700 0.875rem/0 "Open Sans", sans-serif;
   text-decoration: none;
   transition: all 0.2s;
+  position:relative;
 }
 
 .btn-solid-reg:hover {
@@ -272,6 +267,12 @@ screen and (-ms-high-contrast: none) {
 
 .form-control-input:focus+.label-control,
 .form-control-input.notEmpty+.label-control,
+
+/* .form-control-textarea {
+  display: inline-block;
+  padding-top: 50px;
+  text-align: center;
+} */
 .form-control-textarea:focus+.label-control,
 .form-control-textarea.notEmpty+.label-control {
   top: 0.125rem;
@@ -342,10 +343,8 @@ select::-ms-expand {
 
 .form-control-textarea {
   display: inline-block;
-  /* used to eliminate a bottom gap difference between Chrome and IE/FF */
   width: 100%;
   height: 2rem;
-  /* used instead of html rows to normalize height between Chrome and IE/FF */
   padding-top: 0.05rem;
   padding-left: 0rem;
   border: 0.125rem solid #ff4457;
@@ -357,6 +356,28 @@ select::-ms-expand {
   transition: all 0.2s;
   overflow: hidden;
   position: relative;
+}
+
+.form-control-textarea-time {
+  /* display: inline-block; */
+  /* width: 0.75rem; */
+  /* height: 5rem;
+  padding-top: 0.05rem;
+  padding-left: 0rem;
+  border: 0.125rem solid #ff4457; */
+  border-radius: 1.5rem;
+  background-color: #ff4457;
+  color: rgb(255, 255, 255);
+  font: "Open Sans", sans-serif;
+  /* text-decoration: none; */
+  transition: all 0.2s;
+  overflow: hidden;
+  /* position: relative; */
+}
+
+.form-control-textarea-time::placeholder {
+  color: #fff;
+  font: 400 0.875rem/1.75rem "Open Sans", sans-serif;
 }
 
 /* .form-control-textarea {
