@@ -29,7 +29,6 @@ function loadJSON(callback) {
 
 loadJSON(function (response) {
     agentsData = JSON.parse(response).agents;
-    console.log(agentsData);
 });
 
 const agentImage = document.querySelector("#agent-image")
@@ -47,7 +46,6 @@ video.textTracks[0].addEventListener("cuechange", () => {
         let agent = activeCues[0].text
         agentImage.src = "resources/agents/" + agent + ".webp";
         agentName.textContent = agent;
-        console.log(agentsData[agent])
         agentBio.textContent = agentsData[agent].bio;
     }
 })
@@ -67,12 +65,32 @@ video.addEventListener("loadedmetadata", manageKills)
 
 function manageKills() {
     const bpWrapper = document.querySelector("#breakpoint-wrapper");
-    const div = document.createElement("div");
+    console.log(video.textTracks[2])
+    progressBar.style.zIndex = "2"
+    let cues = video.textTracks[2].cues;
+    div = document.createElement("div");
     div.classList.add("breakpoint");
+    div.style.width = `${(cues[0].startTime / video.duration * progressBar.offsetWidth) + 5}px`;
+    console.log(div.style.width)
+    div.style.zIndex = "1";
     bpWrapper.appendChild(div);
-    for (let i = 0; i < video.textTracks[2].cues.length; i++) {
-        const div = document.createElement("div");
+    for (let i = 0; i < cues.length; i++) {
+        if (i == cues.length - 1) {
+            duration = video.duration - cues[i].startTime
+        } else {
+            duration = cues[i + 1].startTime - cues[i].startTime
+        }
+        div = document.createElement("div");
         div.classList.add("breakpoint");
+        div.style.width = `${duration / video.duration * progressBar.offsetWidth}px`;
+        div.style.zIndex = "1";
+        if (cues[i].id.includes("Kill")) {
+            div.style.borderLeft = "3px solid red";
+        } else if (cues[i].id.includes("Ace")) {
+            div.style.borderLeft = "3px solid black";
+        } else if (cues[i].id.includes("Assist")) {
+            div.style.borderLeft = "3px solid blue";
+        }
         bpWrapper.appendChild(div);
     }
 }
