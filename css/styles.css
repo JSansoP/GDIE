@@ -804,14 +804,45 @@ screen and (-ms-high-contrast: none) {
 }
 
 /*************************/
-/*     05. Customers     */
+/*     05. Dividers     */
 /*************************/
+
+.separator{
+  display:flex;
+  align-items: center;
+}
+
+.separator .line{
+  height: 3px;
+  flex: 1;
+  background-color: #ff4454;
+}
+
+.separator h2{
+  padding: 0 2rem;
+}
+
+.separator-card{
+  display:flex;
+  align-items: center;
+}
+
+.separator-card .line{
+  height: 3px;
+  flex: 1;
+  background-color: #333;
+}
+
+.separator-card h2{
+  padding: 0 2rem;
+  color: #ff4454;
+}
 
 /***************************/
 /*     06. Description     */
 /***************************/
 .cards-1 {
-  padding-top: 3.25rem;
+  padding-top: 3.5rem;
   padding-bottom: 3rem;
   text-align: center;
 }
@@ -829,7 +860,14 @@ screen and (-ms-high-contrast: none) {
   border: none;
 }
 
-.cards-1 .card-image {
+.cards-1 .card-image-before {
+  padding-top: 4rem;
+  max-width: 16rem;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  margin-left: auto;
+}
+.cards-1 .card-image-after {
   max-width: 16rem;
   margin-right: auto;
   margin-bottom: 2rem;
