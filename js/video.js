@@ -8,17 +8,20 @@ const playIcon = document.querySelector("#play-icon");
 const forwardButton = document.querySelector("#forward");
 const muteButton = document.querySelector("#mute");
 const volumeIcon = document.querySelector("#volume-icon");
-const volumeSlider = document.querySelector("#volume-slider")
-const progressBar = document.querySelector("#progress-bar")
-const timestamp = document.querySelector("#timestamp")
+const volumeSlider = document.querySelector("#volume-slider");
+const progressBar = document.querySelector("#progress-bar");
+const timestamp = document.querySelector("#timestamp");
 const fullButton = document.querySelector("#full-screen");
 
+const constantInfo = 0;
+const instantInfo = 1;
+const subtitles = 2;
 
 // load json file
 function loadJSON(callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'data/agents.json', true);
+    xobj.open("GET", "data/agents.json", true);
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
             callback(xobj.responseText);
@@ -31,58 +34,63 @@ loadJSON(function (response) {
     agentsData = JSON.parse(response).agents;
 });
 
-const agentImage = document.querySelector("#agent-image")
-const agentName = document.querySelector("#agent-name")
-const agentBio = document.querySelector("#agent-bio")
-const mapImage = document.querySelector("#map-image")
+const agentImage = document.querySelector("#agent-image");
+const agentName = document.querySelector("#agent-name");
+const agentBio = document.querySelector("#agent-bio");
+const mapImage = document.querySelector("#map-image");
 
 // main
-addListeners();
-video.textTracks[0].mode = "showing"
-video.textTracks[0].addEventListener("cuechange", () => {
-    const activeCues = video.textTracks[0].activeCues;
-    if (activeCues.length > 0) {
-        //agentImage.style = "display: block";
-        let agent = activeCues[0].text
-        agentImage.src = "resources/agents/" + agent + ".webp";
-        agentName.textContent = agent;
-        agentBio.textContent = agentsData[agent].bio;
-    }
-})
+$("document").ready(function () {
+    addListeners();
+    video.textTracks[constantInfo].mode = "showing";
+    video.textTracks[constantInfo].addEventListener("cuechange", manageConstantInfo);
+    //Adding subtitles to video event
+    video.textTracks[instantInfo].mode = "showing";
+    video.addEventListener("loadedmetadata", manageKills);
 
-video.textTracks[1].mode = "showing"
-video.textTracks[1].addEventListener("cuechange", () => {
-    const activeCues = video.textTracks[1].activeCues;
-    if (activeCues.length > 0) {
-        //agentImage.style = "display: block";
-        let map = activeCues[0].text
-        mapImage.src = "resources/maps/" + map + ".webp";
-    }
-})
+    video.textTracks[subtitles].mode = "showing";
+    video.addEventListener("loadedmetadata", () => { console.log(video.textTracks[subtitles]) });
+});
 
-video.textTracks[2].mode = "showing"
-video.addEventListener("loadedmetadata", manageKills)
+
+function manageConstantInfo() {
+    const activeCues = video.textTracks[constantInfo].activeCues;
+    if (activeCues.length > 0) {
+        if (activeCues[0].text.includes("Agent")) {
+            let agent = activeCues[0].text;
+            agentImage.src = "resources/agents/" + agent + ".webp";
+            agentName.textContent = agent;
+            agentBio.textContent = agentsData[agent].bio;
+        } else if (activeCues[0].text.includes("Map")) {
+            let map = activeCues[0].text;
+            mapImage.src = "resources/maps/" + map + ".webp";
+        } else if (activeCues[0].text.includes("Weapon")) {
+            let weapon = activeCues[0].text;
+            weaponImage.src = "resources/weapons/" + weapon + ".webp";
+        }
+    }
+}
+
 
 function manageKills() {
     const bpWrapper = document.querySelector("#breakpoint-wrapper");
-    console.log(video.textTracks[2])
-    progressBar.style.zIndex = "2"
-    let cues = video.textTracks[2].cues;
+    progressBar.style.zIndex = "2";
+    let cues = video.textTracks[instantInfo].cues;
     div = document.createElement("div");
     div.classList.add("breakpoint");
-    div.style.width = `${(cues[0].startTime / video.duration * progressBar.offsetWidth) + 5}px`;
-    console.log(div.style.width)
+    div.style.width = `${(cues[0].startTime / video.duration) * progressBar.offsetWidth + 5}px`;
     div.style.zIndex = "1";
     bpWrapper.appendChild(div);
     for (let i = 0; i < cues.length; i++) {
         if (i == cues.length - 1) {
-            duration = video.duration - cues[i].startTime
+            duration = video.duration - cues[i].startTime;
         } else {
-            duration = cues[i + 1].startTime - cues[i].startTime
+            duration = cues[i + 1].startTime - cues[i].startTime;
         }
         div = document.createElement("div");
         div.classList.add("breakpoint");
-        div.style.width = `${duration / video.duration * progressBar.offsetWidth}px`;
+        div.style.width = `${(duration / video.duration) * progressBar.offsetWidth
+            }px`;
         div.style.zIndex = "1";
         if (cues[i].id.includes("Kill")) {
             div.style.borderLeft = "3px solid red";
@@ -97,93 +105,95 @@ function manageKills() {
 
 // add listeners function
 function addListeners() {
-    video.addEventListener("timeupdate", updateVideoProgress)
+    video.addEventListener("timeupdate", updateVideoProgress);
     video.addEventListener("click", playPauseVideo);
     playButton.addEventListener("click", playPauseVideo);
     forwardButton.addEventListener("click", forwardVideo);
     muteButton.addEventListener("click", muteVideoAudio);
     volumeSlider.addEventListener("mousemove", changeVolume);
-    progressBar.addEventListener("change", setVideoProgress)
-    fullButton.addEventListener("click", fullScreen)
+    progressBar.addEventListener("change", setVideoProgress);
+    fullButton.addEventListener("click", fullScreen);
 }
 
 // Utility functions
 function updateVideoProgress() {
-    progressBar.value = Number((video.currentTime / video.duration) * 100)
-    let minutes = Math.floor(video.currentTime / 60)
-    let seconds = Math.floor(video.currentTime % 60)
+    progressBar.value = Number((video.currentTime / video.duration) * 100);
+    let minutes = Math.floor(video.currentTime / 60);
+    let seconds = Math.floor(video.currentTime % 60);
     if (minutes < 10) {
-        minutes = "0" + minutes
+        minutes = "0" + minutes;
     }
     if (seconds < 10) {
-        seconds = "0" + seconds
+        seconds = "0" + seconds;
     }
-    timestamp.textContent = `${minutes}:${seconds}`
+    timestamp.textContent = `${minutes}:${seconds}`;
 }
 
 function playPauseVideo() {
-    video[video.paused ? "play" : "pause"]()
-    playButtonToggleIcon()
+    video[video.paused ? "play" : "pause"]();
+    playButtonToggleIcon();
 }
 
 function playButtonToggleIcon() {
     if (video.paused) {
-        playIcon.classList.remove("fa-pause")
-        playIcon.classList.add("fa-play")
+        playIcon.classList.remove("fa-pause");
+        playIcon.classList.add("fa-play");
     } else {
-        playIcon.classList.remove("fa-play")
-        playIcon.classList.add("fa-pause")
+        playIcon.classList.remove("fa-play");
+        playIcon.classList.add("fa-pause");
     }
 }
 
 function forwardVideo() {
-    console.log("forward")
-    video.currentTime += 10
+    console.log("forward");
+    video.currentTime += 10;
 }
 
 function muteVideoAudio() {
-    console.log("mute")
-    video.muted = !video.muted
-    toggleVolumeIcon()
+    console.log("mute");
+    video.muted = !video.muted;
+    toggleVolumeIcon();
 }
 
 function toggleVolumeIcon() {
     if (video.muted) {
-        volumeIcon.classList.remove("fa-volume-down")
-        volumeIcon.classList.remove("fa-volume-up")
-        volumeIcon.classList.add("fa-volume-mute")
-        volumeIcon.classList.remove("fa-volume-off")
+        volumeIcon.classList.remove("fa-volume-down");
+        volumeIcon.classList.remove("fa-volume-up");
+        volumeIcon.classList.add("fa-volume-mute");
+        volumeIcon.classList.remove("fa-volume-off");
     } else if (video.volume == 0) {
-        volumeIcon.classList.remove("fa-volume-mute")
-        volumeIcon.classList.remove("fa-volume-down")
-        volumeIcon.classList.remove("fa-volume-up")
-        volumeIcon.classList.add("fa-volume-off")
+        volumeIcon.classList.remove("fa-volume-mute");
+        volumeIcon.classList.remove("fa-volume-down");
+        volumeIcon.classList.remove("fa-volume-up");
+        volumeIcon.classList.add("fa-volume-off");
     } else if (video.volume < 0.5) {
-        volumeIcon.classList.add("fa-volume-down")
-        volumeIcon.classList.remove("fa-volume-up")
-        volumeIcon.classList.remove("fa-volume-mute")
-        volumeIcon.classList.remove("fa-volume-off")
+        volumeIcon.classList.add("fa-volume-down");
+        volumeIcon.classList.remove("fa-volume-up");
+        volumeIcon.classList.remove("fa-volume-mute");
+        volumeIcon.classList.remove("fa-volume-off");
     } else {
-        volumeIcon.classList.remove("fa-volume-down")
-        volumeIcon.classList.add("fa-volume-up")
-        volumeIcon.classList.remove("fa-volume-mute")
-        volumeIcon.classList.remove("fa-volume-off")
+        volumeIcon.classList.remove("fa-volume-down");
+        volumeIcon.classList.add("fa-volume-up");
+        volumeIcon.classList.remove("fa-volume-mute");
+        volumeIcon.classList.remove("fa-volume-off");
     }
 }
 
 function changeVolume() {
     video.volume = volumeSlider.value;
-    toggleVolumeIcon()
+    toggleVolumeIcon();
 }
 
 function setVideoProgress() {
-    video.currentTime = Number((progressBar.value * video.duration) / 100)
+    video.currentTime = Number((progressBar.value * video.duration) / 100);
 }
 
 function fullScreen() {
-    if (video.requestFullscreen) { // Principal
+    if (video.requestFullscreen) {
+        // Principal
         video.requestFullscreen();
-    } else if (video.mozRequestFullScreen) { // Segun Navegador
+    } else if (video.mozRequestFullScreen) {
+        // Segun Navegador
         video.mozRequestFullScreen();
     } else if (video.webkitRequestFullscreen) {
         video.webkitRequestFullscreen();
@@ -191,4 +201,3 @@ function fullScreen() {
         video.msRequestFullscreen();
     }
 }
-

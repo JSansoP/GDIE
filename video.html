@@ -97,9 +97,18 @@
 
     <!-- Video -->
     <div id="video" class="basic-2">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col nopadding">                   
+                
+                <div class="nopadding col-lg-3">
+                    <div class="video-info" style="float: right">
+                        <div id="weapon-stats">
+                            <h5>Weapon Stats</h5>
+                            <img id="weapon-image" width="200" height="auto">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 nopadding">                   
                     <!-- Reproductor -->
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
@@ -107,9 +116,9 @@
                             <source src="Valorant_4K.mkv" type="video/mkv">
                             <source src="Valorant_4K.avi" type="video/avi">
                             <source src="r/s.mp4" type="video/mp4">
-                            <track src="data/agent.vtt" label="agent" kind="metadata" srclang="en">
-                            <track src="data/map.vtt" label="map" kind="metadata" srclang="en">
-                            <track src="data/kills.vtt" label="kills" kind="metadata" srclang="en">
+                            <track src="data/constant_info.vtt" label="constant" kind="metadata" srclang="en">
+                            <track src="data/instant_info.vtt" label="instant" kind="metadata" srclang="en">
+                            <track src="data/subtitles.vtt" label="subtitles" kind="metadata" srclang="en">
                         </video>
                         
                         <!-- Controls -->
@@ -128,7 +137,7 @@
                     </main>
                     <!-- end of Reproductor -->
                 </div> <!-- end of col -->
-                <div class="col-md-2 nopadding">
+                <div class="col-lg-3 nopadding" style="float: left">
                     <div class="video-info">
                         <div class="agent-image">
                             <h5> Agent: </h5>
@@ -200,7 +209,6 @@
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
     <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
     <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
