@@ -28,14 +28,17 @@ window.onload = function () {
       var div = document.createElement("div");
       var img = document.createElement("img");
       var text = document.createTextNode(files[i]);
-      img.src = "videos/" + files[i] + ".jpg";
-      img.width = "4rem";
-      img.height = "4rem";
+      img.src = "Videos/" + files[i] +"/"+files[i]+ ".jpg";
+      img.sizes = "50%";
+      vid = files[i];
+      console.log(vid);
       img.addEventListener("click", function () {
-        setVideoOnEditor(files[i]);
+        console.log(vid); //Pilla el src del ultimo video
+        setVideoOnEditor(vid);
         video_selector.hidden = true;
       });
-
+      img.style="position: top";
+      text.style="position: bottom";
       div.appendChild(img);
       div.appendChild(text);
       video_selector.appendChild(div);
@@ -45,17 +48,14 @@ window.onload = function () {
 
 // Funciones iniciales
 
-// function sendLocation() {
-//   var inputElement = document.getElementById("video-location");
-//   var location = inputElement.value;
-//   setVideoOnEditor(location);
-//   inputElement.hidden = true;
-//   document.getElementById("send-location").hidden = true;
-// }
+
 
 function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
-  video.src = videoName = location+".mp4";
+  video.src = videoName = "Videos/"+location+"/"+location+".mp4";
+  console.log(video.src);
+  console.log(videoName);
+  console.log(video.src);
   video.hidden = false;
   document.getElementById("kills-container").style.visibility = "visible";
   document.getElementById("selector-container-agent").style.visibility = "visible";
@@ -70,13 +70,13 @@ function setVideoOnEditor(location) {
 
   //if video is mp4 then replace .mp4 with varPaths
   if (videoName.includes(".mp4")) {
-    pathMetadata[0] = location.replace(".mp4", "-metadataKills.vtt");
-    pathMetadata[1] = location.replace(".mp4", "-metadataAgents.vtt");
-    pathMetadata[2] = location.replace(".mp4", "-metadataSubtitles.vtt");
+    pathMetadata[0] = videoName.replace(".mp4", "-metadataKills.vtt");
+    pathMetadata[1] = videoName.replace(".mp4", "-metadataAgents.vtt");
+    pathMetadata[2] = videoName.replace(".mp4", "-metadataSubtitles.vtt");
   } else {
-    pathMetadata[0] = location.replace(".webm", "-metadataKills.vtt");
-    pathMetadata[1] = location.replace(".webm", "-metadataAgents.vtt");
-    pathMetadata[2] = location.replace(".webm", "-metadataSubtitles.vtt");
+    pathMetadata[0] = videoName.replace(".webm", "-metadataKills.vtt");
+    pathMetadata[1] = videoName.replace(".webm", "-metadataAgents.vtt");
+    pathMetadata[2] = videoName.replace(".webm", "-metadataSubtitles.vtt");
   }
 
   var track1 = video.textTracks[0];
