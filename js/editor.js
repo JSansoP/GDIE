@@ -60,8 +60,7 @@ function setVideoOnEditor(location) {
   track1.mode = "showing";
   track2.mode = "showing";
   track3.mode = "showing";
-  console.log("puta");
-  console.log(video.textTracks[0]);
+  // console.log(video.textTracks[0]);
   //Print all cues from track1
   for (var i = 0; i < video.textTracks[0].cues.length; i++) {
     console.log(video.textTracks[0].cues[i]);
@@ -164,6 +163,13 @@ $("#add-subtitle").click(function () {
   addCueToDiv(cue, 2);
 });
 
+//get filename from path
+function getFileName(path) {
+  var fileName = path.split("/");
+  fileName = fileName[fileName.length - 1];
+  return fileName;
+}
+
 //JQuery guardar y borrar tracks
 $("#save-tracks").click(function () {
   var vid = document.getElementById("editor-video");
@@ -177,7 +183,8 @@ $("#save-tracks").click(function () {
       }
       console.log(vtt);
       console.log(pathMetadata[i]);
-      writeVtt(vtt, pathMetadata[i]);
+      var fileName = getFileName(pathMetadata[i]);
+      writeVtt(vtt, fileName);
       vtt = "WEBVTT\n\n";
     }
   }
