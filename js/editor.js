@@ -40,23 +40,6 @@ function setVideoOnEditor(location) {
   document.getElementById("cues-selector").style.visibility = "visible";
   document.getElementById("player").style.visibility = "visible";
 
-  video.addEventListener("ended", (event) => {
-    cueoldAgent.setTempsFinal(video.currentTime);
-    vttAgent = cueoldAgent.toVttFormat();
-    if (vttAgent != null) {
-      writeVtt(vttAgent, "agent_weapon_map");
-    }
-    cueoldWeapon.setTempsFinal(video.currentTime);
-    vttWeapon = cueoldWeapon.toVttFormat();
-    if (vttWeapon != null) {
-      writeVtt(vttWeapon, "agent_weapon_map");
-    }
-    cueOldMap.setTempsFinal(video.currentTime);
-    vttMap = cueOldMap.toVttFormat();
-    if (vttMap != null) {
-      writeVtt(vttMap, "agent_weapon_map");
-    }
-  });
   //if video is mp4 then replace .mp4 with varPaths
   if (videoName.includes(".mp4")) {
     pathMetadata[0] = location.replace(".mp4", "-metadataKills.vtt");
@@ -72,9 +55,17 @@ function setVideoOnEditor(location) {
   var track2 = video.textTracks[1];
   var track3 = video.textTracks[2];
 
+  video.textTracks[0].src = "/data/kills.vtt";
+
   track1.mode = "showing";
   track2.mode = "showing";
   track3.mode = "showing";
+  console.log("puta");
+  console.log(video.textTracks[0]);
+  //Print all cues from track1
+  for (var i = 0; i < video.textTracks[0].cues.length; i++) {
+    console.log(video.textTracks[0].cues[i]);
+  }
 }
 
 //JQuery track 0
@@ -177,18 +168,17 @@ $("#add-subtitle").click(function () {
 $("#save-tracks").click(function () {
   var vid = document.getElementById("editor-video");
   var cues_selector = document.getElementById("cues-selector");
-  var vtt = "";
+  var vtt = "WEBVTT\n\n";
   for (var i = 0; i < vid.textTracks.length; i++) {
-    console.log(vid.textTracks[i]);
     if (vid.textTracks[i].cues != null) {
       for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
         var cue = vid.textTracks[i].cues[j];
-        console.log(cue);
-        vtt += `${cue.startTime.toFixed(3)}\t${cue.endTime.toFixed(3)}\t${cue.text
-          }\n`;
+        vtt += `${reconvertTime(cue.startTime.toFixed(3))}  -->  ${reconvertTime(cue.endTime.toFixed(3))}\n${cue.text}\n`;
       }
+      console.log(vtt);
+      console.log(pathMetadata[i]);
       writeVtt(vtt, pathMetadata[i]);
-      vtt = "";
+      vtt = "WEBVTT\n\n";
     }
   }
   cues_selector.replaceChildren();
