@@ -1563,3 +1563,15 @@ a:hover.back-to-top {
   visibility: hidden;
 }
 
+#video-selector{
+  display: inline-block;
+  padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
+  background-color: rgb(227, 240, 230);
+  border: 0.125rem solid #ff4457;
+  border-radius: 0.5rem;
+  overflow-y: scroll;
+  height: 30rem;
+  width: 100%;
+  
+}
+

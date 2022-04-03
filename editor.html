@@ -19,7 +19,8 @@
     <link rel="icon" href="images/icon.png">
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
@@ -117,28 +118,36 @@
                     <!-- Video Preview -->
                     <div class="video-container">
                         <div class="video-wrapper">
-                            <div> id="video-selector">
+                            <div id="video-selector">
                             </div>
-                            <input id="video-location" class="video-send" placeholder="Video Location"></input>
+                            <!-- <input id="video-location" class="video-send" placeholder="Video Location"></input>
                             <button onClick="sendLocation()" id="send-location"
-                                class="btn btn-primary video-send">Send</button>
-                                <main id="player" class="player editor-element">
-                                    <video id="editor-video" class="video" poster="images/Untitled.png">
-                                        <track id="track-kills" kind="metadata" mode="showing"></track>
-                                        <track id="track-agents" kind="metadata" mode="showing"></track>
-                                        <track id="track-subtitles" kind="subtitles" mode="showing"></track>
-                                    </video>
-                                    <!-- Controls -->
-                                    <nav class="controls">
-                                        <button id="play" class="button"> <i id="play-icon" class="fas fa-play"></i> </button>
-                                        <button id="forward" class="button"> <i class="fas fa-step-forward"></i> </button>
-                                        <div style="width: 50px;"> <button id="mute" class="button"> <i id="volume-icon" class="fas fa-volume-up"></i> </button> </div>
-                                        <input id="volume-slider" class="volume" type="range" min="0" max="1" step="0.01" value="0.5">
-                                        <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1" value="0">
-                                        <small id="timestamp" class="timestamp"> 00:00 </small>
-                                        <button id="full-screen" class="button"> <i class="fa fa-expand" aria-hidden="true"></i> </button>
-                                    </nav>
-                                </main>
+                                class="btn btn-primary video-send">Send</button> -->
+                            <main id="player" class="player editor-element">
+                                <video id="editor-video" class="video" poster="images/Untitled.png">
+                                    <track id="track-kills" kind="metadata" mode="showing">
+                                    </track>
+                                    <track id="track-agents" kind="metadata" mode="showing">
+                                    </track>
+                                    <track id="track-subtitles" kind="subtitles" mode="showing">
+                                    </track>
+                                </video>
+                                <!-- Controls -->
+                                <nav class="controls">
+                                    <button id="play" class="button"> <i id="play-icon" class="fas fa-play"></i>
+                                    </button>
+                                    <button id="forward" class="button"> <i class="fas fa-step-forward"></i> </button>
+                                    <div style="width: 50px;"> <button id="mute" class="button"> <i id="volume-icon"
+                                                class="fas fa-volume-up"></i> </button> </div>
+                                    <input id="volume-slider" class="volume" type="range" min="0" max="1" step="0.01"
+                                        value="0.5">
+                                    <input id="progress-bar" class="progress" type="range" min="0" max="100" step="0.1"
+                                        value="0">
+                                    <small id="timestamp" class="timestamp"> 00:00 </small>
+                                    <button id="full-screen" class="button"> <i class="fa fa-expand"
+                                            aria-hidden="true"></i> </button>
+                                </nav>
+                            </main>
                         </div>
                     </div>
                     <div id="kills-container" class="editor-element" style="padding: 20px">
@@ -236,22 +245,22 @@
                             <option value="Icebox">Icebox</option>
                             <option value="Split">Split</option>
                         </select>
-                        <textarea id="final-time-map" class="form-control-textarea-time" placeholder="hh:mm:ss" maxlength="8"
-                            style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
+                        <textarea id="final-time-map" class="form-control-textarea-time" placeholder="hh:mm:ss"
+                            maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-map" class="btn btn-solid-reg">Save map</button>
                     </div>
                     <div id="subtitles-container" class="editor-element" style="padding: 0.5rem">
                         <textarea id="initial-time-subtitle" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
-                        <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos" maxlength="80"
-                            required="true" style="width: 50%"></textarea>
+                        <textarea id="subtitle" class="form-control-textarea" placeholder="Ponga subtitulos"
+                            maxlength="80" required="true" style="width: 50%"></textarea>
                         <textarea id="final-time-subtitle" class="form-control-textarea-time" placeholder="hh:mm:ss"
                             maxlength="8" style="resize: none; width: 5rem; height: 2rem;" required="true"></textarea>
                         <button id="add-subtitle" class="btn btn-solid-reg">Save Subtitle</button>
-                    
+
                     </div>
                     <div id="cues-selector">
-    
+
                     </div>
                     <div>
                         <button class="btn btn-solid-reg" id="delete-tracks" ;>Delete all metadata</button>
@@ -347,6 +356,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
     <link href="css/video.css" rel="stylesheet">
     <script src="js/video.js" defer></script>
-    
+
 </body>
+
 </html>

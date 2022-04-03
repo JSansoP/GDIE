@@ -16,19 +16,46 @@ var videoName;
 var pathMetadata = [];
 
 
+window.onload = function () {
+
+  //call php/getFiles.php to get all the files in the folder and put them in the select element
+  $.get("php/getFiles.php", function (data) {
+    var files = JSON.parse(data);
+
+    //add files to video-selector
+    var video_selector = document.getElementById("video-selector");
+    for (var i = 0; i < files.length; i++) {
+      var div = document.createElement("div");
+      var img = document.createElement("img");
+      var text = document.createTextNode(files[i]);
+      img.src = "videos/" + files[i] + ".jpg";
+      img.width = "4rem";
+      img.height = "4rem";
+      img.addEventListener("click", function () {
+        setVideoOnEditor(files[i]);
+        video_selector.hidden = true;
+      });
+
+      div.appendChild(img);
+      div.appendChild(text);
+      video_selector.appendChild(div);
+    }
+  });
+}
+
 // Funciones iniciales
 
-function sendLocation() {
-  var inputElement = document.getElementById("video-location");
-  var location = inputElement.value;
-  setVideoOnEditor(location);
-  inputElement.hidden = true;
-  document.getElementById("send-location").hidden = true;
-}
+// function sendLocation() {
+//   var inputElement = document.getElementById("video-location");
+//   var location = inputElement.value;
+//   setVideoOnEditor(location);
+//   inputElement.hidden = true;
+//   document.getElementById("send-location").hidden = true;
+// }
 
 function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
-  video.src = videoName = location;
+  video.src = videoName = location+".mp4";
   video.hidden = false;
   document.getElementById("kills-container").style.visibility = "visible";
   document.getElementById("selector-container-agent").style.visibility = "visible";
@@ -40,23 +67,7 @@ function setVideoOnEditor(location) {
   document.getElementById("cues-selector").style.visibility = "visible";
   document.getElementById("player").style.visibility = "visible";
 
-  video.addEventListener("ended", (event) => {
-    cueoldAgent.setTempsFinal(video.currentTime);
-    vttAgent = cueoldAgent.toVttFormat();
-    if (vttAgent != null) {
-      writeVtt(vttAgent, "agent_weapon_map");
-    }
-    cueoldWeapon.setTempsFinal(video.currentTime);
-    vttWeapon = cueoldWeapon.toVttFormat();
-    if (vttWeapon != null) {
-      writeVtt(vttWeapon, "agent_weapon_map");
-    }
-    cueOldMap.setTempsFinal(video.currentTime);
-    vttMap = cueOldMap.toVttFormat();
-    if (vttMap != null) {
-      writeVtt(vttMap, "agent_weapon_map");
-    }
-  });
+
   //if video is mp4 then replace .mp4 with varPaths
   if (videoName.includes(".mp4")) {
     pathMetadata[0] = location.replace(".mp4", "-metadataKills.vtt");
@@ -86,7 +97,6 @@ $("#AddKill").click(function () {
   addCueToDiv(cue, 0);
   numKill++;
 });
-
 
 $("#AddSpike").click(function () {
   var vid = document.getElementById("editor-video");
