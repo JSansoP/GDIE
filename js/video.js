@@ -66,7 +66,7 @@ $("document").ready(function () {
     video.textTracks[constantInfo].addEventListener("cuechange", manageConstantInfo);
 
     video.textTracks[instantInfo].mode = "showing";
-    video.addEventListener("loadedmetadata", manageKills);
+    video.addEventListener("loadedmetadata", manageInstantInfo);
 });
 
 
@@ -90,7 +90,7 @@ function manageConstantInfo() {
 }
 
 
-function manageKills() {
+function manageInstantInfo() {
     const bpWrapper = document.querySelector("#breakpoint-wrapper");
     progressBar.style.zIndex = "2";
     let cues = video.textTracks[instantInfo].cues;
@@ -110,11 +110,11 @@ function manageKills() {
         div.style.width = `${(duration / video.duration) * progressBar.offsetWidth
             }px`;
         div.style.zIndex = "1";
-        if (cues[i].id.includes("Kill")) {
+        if (cues[i].text.includes("Kill")) {
             div.style.borderLeft = "3px solid red";
-        } else if (cues[i].id.includes("Ace")) {
+        } else if (cues[i].text.includes("Ace")) {
             div.style.borderLeft = "3px solid black";
-        } else if (cues[i].id.includes("Assist")) {
+        } else if (cues[i].text.includes("Assist")) {
             div.style.borderLeft = "3px solid blue";
         }
         bpWrapper.appendChild(div);

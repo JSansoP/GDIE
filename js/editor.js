@@ -17,7 +17,6 @@ var pathMetadata = [];
 
 
 window.onload = function () {
-
   //call php/getFiles.php to get all the files in the folder and put them in the select element
   $.get("php/getFiles.php", function (data) {
     var files = JSON.parse(data);
@@ -60,11 +59,25 @@ function addListenerToImg(img, vid) {
 // Funciones iniciales
 
 function setVideoOnEditor(location) {
-  console.log("location " + location);
   var video = document.getElementById("editor-video");
-  video.src = videoName = "Videos/" + location + "/" + location + ".mp4";
-  console.log("videoName: " + videoName);
+
+  //Posible subfuncion
+  if (video.canPlayType) {
+    console.log("canPlay")
+    if (video.canPlayType("video/mp4")) {
+      video.src = "videos/" + location + "/" + location + ".mp4";
+      video.type = "video/mp4";
+    } else if (video.canPlayType("video/mkv")) {
+      video.src = "videos/" + location + "/" + location + ".mkv";
+      video.type = "video/mkv";
+    } else if (video.canPlayType("video/avi")) {
+      video.src = "videos/" + location + "/" + location + ".avi";
+      video.type = "video/avi";
+    }
+  }
+
   video.hidden = false;
+  //Possible subfuncion para poner visible las cosas
   document.getElementById("kills-container").style.visibility = "visible";
   document.getElementById("selector-container-agent").style.visibility = "visible";
   document.getElementById("selector-container-weapon").style.visibility = "visible";
@@ -75,25 +88,38 @@ function setVideoOnEditor(location) {
   document.getElementById("cues-selector").style.visibility = "visible";
   document.getElementById("player").style.visibility = "visible";
   //PORQUE NO SE GUARDAA EN LA SUBCARPETA???? JONATHAN
-  pathMetadata[0] = "/videos/" + location + "/instant_info.vtt";
-  pathMetadata[1] = "/videos/" + location + "/constant_info.vtt";
-  pathMetadata[2] = "/videos/" + location + "/subtitles.vtt";
-  console.log("pathMetadata: " + pathMetadata[0]);
+  pathMetadata[0] = "videos/" + location + "/instant_info.vtt";
+  pathMetadata[1] = "videos/" + location + "/constant_info.vtt";
+  pathMetadata[2] = "videos/" + location + "/subtitles.vtt";
 
-  var track1 = video.textTracks[0];
-  var track2 = video.textTracks[1];
-  var track3 = video.textTracks[2];
 
-  //add vtt file to track source
-  track1.src = pathMetadata[0];
-  track2.src = pathMetadata[1];
-  track3.src = pathMetadata[2];
+  const instantInfo = document.getElementById("instant-info");
+  instantInfo.src = pathMetadata[0];
 
-  track1.mode = "showing";
-  track2.mode = "showing";
-  track3.mode = "showing";
+  const constantInfo = document.getElementById("constant-info");
+  constantInfo.src = pathMetadata[1];
 
+  const subtitlesInfo = document.getElementById("subtitles-info");
+  subtitlesInfo.src = pathMetadata[2];
+
+  video.load()
+
+  for (var i = 0; i < video.textTracks.length; i++) {
+    video.textTracks[i].mode = "showing";
+  }
+
+
+  console.log(video.textTracks);
+  video.addEventListener("loadedmetadata", function () {
+    //Loop through all cues in all tracks
+    for (var i = 0; i < video.textTracks.length; i++) {
+      for (var j = 0; j < video.textTracks[i].cues.length; j++) {
+        addCueToDiv(video.textTracks[i].cues[j], i);
+      }
+    }
+  });
 }
+
 
 //JQuery track 0
 $("#AddKill").click(function () {
@@ -200,7 +226,6 @@ function getFileName(path) {
 //JQuery guardar y borrar tracks
 $("#save-tracks").click(function () {
   var vid = document.getElementById("editor-video");
-  var cues_selector = document.getElementById("cues-selector");
   var vtt = "WEBVTT\n\n";
   for (var i = 0; i < vid.textTracks.length; i++) {
     if (vid.textTracks[i].cues != null) {
@@ -208,14 +233,10 @@ $("#save-tracks").click(function () {
         var cue = vid.textTracks[i].cues[j];
         vtt += `${reconvertTime(cue.startTime.toFixed(3))}  -->  ${reconvertTime(cue.endTime.toFixed(3))}\n${cue.text}\n\n`;
       }
-      console.log(vtt);
-      console.log(pathMetadata[i]);
-      var fileName = getFileName(pathMetadata[i]);
-      writeVtt(vtt, fileName);
+      writeVtt(vtt, pathMetadata[i]);
       vtt = "WEBVTT\n\n";
     }
   }
-  cues_selector.replaceChildren();
 });
 
 $("#delete-tracks").click(function () {
@@ -232,7 +253,6 @@ $("#delete-tracks").click(function () {
   cues_selector.replaceChildren();
 });
 
-
 // Funciones auxiliares
 function addCueToDiv(cue, num_track) {
   var video = document.getElementById("editor-video");
@@ -242,9 +262,13 @@ function addCueToDiv(cue, num_track) {
     }\n`);
 
   var button = document.createElement("button");
-  button.class = "btn btn-solid-reg";
+  button.className = "btn-solid-reg";
   button.innerText = "Elimina Cue";
   button.visibility = "visible";
+  //add left and top padding to button
+  button.style.margin = "0.25rem";
+ 
+
   text.visibility = "visible";
   button.addEventListener("click", function () {
     video.textTracks[num_track].removeCue(cue);
@@ -253,6 +277,7 @@ function addCueToDiv(cue, num_track) {
 
   div.appendChild(text);
   div.appendChild(button);
+
   cues_selector.appendChild(div);
 }
 
@@ -261,6 +286,7 @@ function writeVtt(vtt, file) {
     f: `${file}`,
     str: vtt,
   };
+  console.log(file);
   $.post("php/writeVtt.php", data);
   console.log("he posteado");
 }
