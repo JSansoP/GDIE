@@ -44,6 +44,23 @@ const weaponImage = document.querySelector("#weapon-image");
 
 // main
 $("document").ready(function () {
+    if(video.canPlayType){
+        console.log("canPlay")
+        if(video.canPlayType("video/mp4")){
+            video.src = "videos/sample/sample.mp4";
+            video.type= "video/mp4";
+            console.log("mp4")
+            // video.src = "videos/valorant/valorant.mp4";
+        } else if(video.canPlayType("video/mkv")){
+            video.src = "videos/valorant/valorant.mkv";
+            video.type= "video/mkv";
+            console.log("mkv")
+        } else if(video.canPlayType("video/avi")){
+            video.src = "videos/valorant/valorant.avi";
+            video.type= "video/avi";
+            console.log("avi")
+        }
+    }
     addListeners();
     video.textTracks[constantInfo].mode = "showing";
     video.textTracks[constantInfo].addEventListener("cuechange", manageConstantInfo);
