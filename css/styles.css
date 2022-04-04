@@ -1529,6 +1529,13 @@ a:hover.back-to-top {
   text-decoration: none;
 }
 
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
 #delete-tracks {
   background-color: rgb(223, 5, 27);
   visibility: hidden;

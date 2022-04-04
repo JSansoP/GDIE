@@ -21,28 +21,38 @@ window.onload = function () {
   //call php/getFiles.php to get all the files in the folder and put them in the select element
   $.get("php/getFiles.php", function (data) {
     var files = JSON.parse(data);
+    var video_selector = document.getElementById("video-selector");
 
     //add files to video-selector
-    var video_selector = document.getElementById("video-selector");
     for (var i = 0; i < files.length; i++) {
       var div = document.createElement("div");
       var img = document.createElement("img");
+      var bold = document.createElement("strong");
+      var br = document.createElement("br");
       var text = document.createTextNode(files[i]);
-      img.src = "Videos/" + files[i] +"/"+files[i]+ ".jpg";
+
+      img.src = "Videos/" + files[i] + "/" + files[i] + ".jpg";
       img.sizes = "50%";
-      vid = files[i];
-      console.log(vid);
-      img.addEventListener("click", function () {
-        console.log(vid); //Pilla el src del ultimo video
-        setVideoOnEditor(vid);
-        video_selector.hidden = true;
-      });
-      img.style="position: top";
-      text.style="position: bottom";
+      img.style.margin = "2rem";
+      img.style.border = "1px solid #ff4457";
+      bold.style.paddingLeft = "2rem";
+
+      addListenerToImg(img, files[i]);
+
+      bold.appendChild(text);
       div.appendChild(img);
-      div.appendChild(text);
+      div.appendChild(bold);
       video_selector.appendChild(div);
+      video_selector.appendChild(br);
     }
+    
+  });
+}
+function addListenerToImg(img, vid) {
+  var video_selector = document.getElementById("video-selector");
+  img.addEventListener("click", function () {
+    setVideoOnEditor(vid);
+    video_selector.hidden = true;
   });
 }
 
@@ -52,7 +62,7 @@ window.onload = function () {
 
 function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
-  video.src = videoName = "Videos/"+location+"/"+location+".mp4";
+  video.src = videoName = "Videos/" + location + "/" + location + ".mp4";
   console.log(video.src);
   console.log(videoName);
   console.log(video.src);
