@@ -11,6 +11,8 @@ const volumeIcon = document.querySelector("#volume-icon");
 const volumeSlider = document.querySelector("#volume-slider");
 const progressBar = document.querySelector("#progress-bar");
 const timestamp = document.querySelector("#timestamp");
+const subtitlesButtton = document.querySelector("#subtitles");
+const subtitlesIcon = document.querySelector("#subtitles-icon");
 const fullButton = document.querySelector("#full-screen");
 
 const constantInfo = 0;
@@ -38,34 +40,33 @@ const agentImage = document.querySelector("#agent-image");
 const agentName = document.querySelector("#agent-name");
 const agentBio = document.querySelector("#agent-bio");
 const mapImage = document.querySelector("#map-image");
+const weaponImage = document.querySelector("#weapon-image");
 
 // main
 $("document").ready(function () {
     addListeners();
     video.textTracks[constantInfo].mode = "showing";
     video.textTracks[constantInfo].addEventListener("cuechange", manageConstantInfo);
-    //Adding subtitles to video event
+
     video.textTracks[instantInfo].mode = "showing";
     video.addEventListener("loadedmetadata", manageKills);
-
-    video.textTracks[subtitles].mode = "showing";
-    video.addEventListener("loadedmetadata", () => { console.log(video.textTracks[subtitles]) });
 });
 
 
 function manageConstantInfo() {
     const activeCues = video.textTracks[constantInfo].activeCues;
-    if (activeCues.length > 0) {
-        if (activeCues[0].text.includes("Agent")) {
+    for (let i = 0; i < activeCues.length; i++) {
+        console.log(activeCues[i].id + ", " + activeCues[i].text);
+        if (activeCues[i].id.includes("Agent")) {
             let agent = activeCues[0].text;
             agentImage.src = "resources/agents/" + agent + ".webp";
             agentName.textContent = agent;
             agentBio.textContent = agentsData[agent].bio;
-        } else if (activeCues[0].text.includes("Map")) {
-            let map = activeCues[0].text;
+        } else if (activeCues[i].id.includes("Map")) {
+            let map = activeCues[i].text;
             mapImage.src = "resources/maps/" + map + ".webp";
-        } else if (activeCues[0].text.includes("Weapon")) {
-            let weapon = activeCues[0].text;
+        } else if (activeCues[i].id.includes("Weapon")) {
+            let weapon = activeCues[i].text;
             weaponImage.src = "resources/weapons/" + weapon + ".webp";
         }
     }
@@ -112,10 +113,24 @@ function addListeners() {
     muteButton.addEventListener("click", muteVideoAudio);
     volumeSlider.addEventListener("mousemove", changeVolume);
     progressBar.addEventListener("change", setVideoProgress);
+    subtitlesButtton.addEventListener("click", toggleSubtitles);
     fullButton.addEventListener("click", fullScreen);
 }
 
 // Utility functions
+
+function toggleSubtitles() {
+    if (video.textTracks[subtitles].mode == "showing") {
+        video.textTracks[subtitles].mode = "hidden";
+        subtitlesIcon.classList.remove("fas");
+        subtitlesIcon.classList.add("far");
+    } else {
+        video.textTracks[subtitles].mode = "showing";
+        subtitlesIcon.classList.remove("far");
+        subtitlesIcon.classList.add("fas");
+    }
+}
+
 function updateVideoProgress() {
     progressBar.value = Number((video.currentTime / video.duration) * 100);
     let minutes = Math.floor(video.currentTime / 60);

@@ -99,7 +99,6 @@
     <div id="video" class="basic-2">
         <div class="container-fluid">
             <div class="row">
-                
                 <div class="nopadding col-lg-3">
                     <div class="video-info" style="float: right">
                         <div id="weapon-stats">
@@ -112,13 +111,13 @@
                     <!-- Reproductor -->
                     <main class="player">
                         <video class="video" poster="images/Untitled.png">
-                            <source src="Valorant_4K.mp4" type="video/mp4">
-                            <source src="Valorant_4K.mkv" type="video/mkv">
-                            <source src="Valorant_4K.avi" type="video/avi">
-                            <source src="r/s.mp4" type="video/mp4">
-                            <track src="data/constant_info.vtt" label="constant" kind="metadata" srclang="en">
-                            <track src="data/instant_info.vtt" label="instant" kind="metadata" srclang="en">
-                            <track src="data/subtitles.vtt" label="subtitles" kind="metadata" srclang="en">
+                            <source src="videos/valorant/valorant.mp4" type="video/mp4">
+                            <source src="videos/valorant/valorant.mkv" type="video/mkv">
+                            <source src="videos/valorant/valorant.avi" type="video/avi">
+                            <source src="videos/sample/sample.mp4" type="video/mp4">
+                            <track src="videos/valorant/constant_info.vtt" label="constant" kind="metadata" srclang="en">
+                            <track src="videos/valorant/instant_info.vtt" label="instant" kind="metadata" srclang="en">
+                            <track src="videos/valorant/subtitles.vtt" label="subtitles" kind="subtitles" srclang="en">
                         </video>
                         
                         <!-- Controls -->
@@ -132,6 +131,7 @@
                                 <div id="breakpoint-wrapper" class="overlay"></div>
                             </div>
                             <small id="timestamp" class="timestamp"> 00:00 </small>
+                            <button id="subtitles" class="button"> <i id="subtitles-icon" class="far fa-closed-captioning" aria-hidden="true"></i> </button>
                             <button id="full-screen" class="button"> <i class="fa fa-expand" aria-hidden="true"></i> </button>
                         </nav>
                     </main>
