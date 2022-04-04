@@ -1563,7 +1563,7 @@ a:hover.back-to-top {
   border: 0.125rem solid #ff4457;
   border-radius: 0.5rem;
   overflow: auto;
-  max-height: 10rem;
+  max-height: 25rem;
   width: 100%;
   visibility: hidden;
 }
