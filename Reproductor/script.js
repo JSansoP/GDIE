@@ -139,3 +139,32 @@ fullscreen.addEventListener('click',()=>{
         document.exitFullscreen();
     }
 });
+
+// Store video duration and video path in local storage
+// window.addEventListener('unload',()=>{
+//     let setDuration = localStorage.setItem('duration',`${mainVideo.currentTime}`);
+//     let setSrc = localStorage.setItem('src',`${mainVideo.getAttribute('src')}`);
+// })
+
+// window.addEventListener('load',()=>{
+//     let getDuration = localStorage.getItem('duration');
+//     let getSrc = localStorage.getItem('src');
+//     if (getSrc) {
+//         mainVideo.src = getSrc;
+//         mainVideo.currentTime = getDuration;
+//     }
+// })
+
+// mainVideo.addEventListener('contextmenu',(e)=>{
+//     e.preventDefault();
+// })
+
+// Mouse move controls
+// video_player.addEventListener('mouseover',()=>{
+//     controls.classList.add('active');
+// })
+
+// video_player.addEventListener('mouseleave',()=>{
+//     controls.classList.remove('active')
+    
+// })
