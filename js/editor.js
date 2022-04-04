@@ -31,7 +31,7 @@ window.onload = function () {
       var br = document.createElement("br");
       var text = document.createTextNode(files[i]);
 
-      img.src = "Videos/" + files[i] + "/" + files[i] + ".jpg";
+      img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
       img.sizes = "50%";
       img.style.margin = "2rem";
       img.style.border = "1px solid #ff4457";
@@ -45,7 +45,7 @@ window.onload = function () {
       video_selector.appendChild(div);
       video_selector.appendChild(br);
     }
-    
+
   });
 }
 function addListenerToImg(img, vid) {
@@ -62,7 +62,7 @@ function addListenerToImg(img, vid) {
 
 function setVideoOnEditor(location) {
   var video = document.getElementById("editor-video");
-  video.src = videoName = "Videos/" + location + "/" + location + ".mp4";
+  video.src = videoName = "videos/" + location + "/" + location + ".mp4";
   console.log(video.src);
   console.log(videoName);
   console.log(video.src);
