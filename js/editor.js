@@ -36,7 +36,7 @@ window.onload = function () {
       img.style.margin = "2rem";
       img.style.border = "1px solid #ff4457";
       bold.style.paddingLeft = "2rem";
-
+      console.log("File[i] " + files[i]);
       addListenerToImg(img, files[i]);
 
       bold.appendChild(text);
@@ -48,6 +48,7 @@ window.onload = function () {
 
   });
 }
+
 function addListenerToImg(img, vid) {
   var video_selector = document.getElementById("video-selector");
   img.addEventListener("click", function () {
@@ -58,14 +59,11 @@ function addListenerToImg(img, vid) {
 
 // Funciones iniciales
 
-
-
 function setVideoOnEditor(location) {
+  console.log("location " + location);
   var video = document.getElementById("editor-video");
-  video.src = videoName = "videos/" + location + "/" + location + ".mp4";
-  console.log(video.src);
-  console.log(videoName);
-  console.log(video.src);
+  video.src = videoName = "Videos/" + location + "/" + location + ".mp4";
+  console.log("videoName: " + videoName);
   video.hidden = false;
   document.getElementById("kills-container").style.visibility = "visible";
   document.getElementById("selector-container-agent").style.visibility = "visible";
@@ -76,32 +74,25 @@ function setVideoOnEditor(location) {
   document.getElementById("save-tracks").style.visibility = "visible";
   document.getElementById("cues-selector").style.visibility = "visible";
   document.getElementById("player").style.visibility = "visible";
-
-  //if video is mp4 then replace .mp4 with varPaths
-  if (videoName.includes(".mp4")) {
-    pathMetadata[0] = videoName.replace(".mp4", "-metadataKills.vtt");
-    pathMetadata[1] = videoName.replace(".mp4", "-metadataAgents.vtt");
-    pathMetadata[2] = videoName.replace(".mp4", "-metadataSubtitles.vtt");
-  } else {
-    pathMetadata[0] = videoName.replace(".webm", "-metadataKills.vtt");
-    pathMetadata[1] = videoName.replace(".webm", "-metadataAgents.vtt");
-    pathMetadata[2] = videoName.replace(".webm", "-metadataSubtitles.vtt");
-  }
+  //PORQUE NO SE GUARDAA EN LA SUBCARPETA???? JONATHAN
+  pathMetadata[0] = "/videos/" + location + "/instant_info.vtt";
+  pathMetadata[1] = "/videos/" + location + "/constant_info.vtt";
+  pathMetadata[2] = "/videos/" + location + "/subtitles.vtt";
+  console.log("pathMetadata: " + pathMetadata[0]);
 
   var track1 = video.textTracks[0];
   var track2 = video.textTracks[1];
   var track3 = video.textTracks[2];
 
-  video.textTracks[0].src = "/data/kills.vtt";
+  //add vtt file to track source
+  track1.src = pathMetadata[0];
+  track2.src = pathMetadata[1];
+  track3.src = pathMetadata[2];
 
   track1.mode = "showing";
   track2.mode = "showing";
   track3.mode = "showing";
-  // console.log(video.textTracks[0]);
-  //Print all cues from track1
-  for (var i = 0; i < video.textTracks[0].cues.length; i++) {
-    console.log(video.textTracks[0].cues[i]);
-  }
+
 }
 
 //JQuery track 0
@@ -215,7 +206,7 @@ $("#save-tracks").click(function () {
     if (vid.textTracks[i].cues != null) {
       for (var j = 0; j < vid.textTracks[i].cues.length; j++) {
         var cue = vid.textTracks[i].cues[j];
-        vtt += `${reconvertTime(cue.startTime.toFixed(3))}  -->  ${reconvertTime(cue.endTime.toFixed(3))}\n${cue.text}\n`;
+        vtt += `${reconvertTime(cue.startTime.toFixed(3))}  -->  ${reconvertTime(cue.endTime.toFixed(3))}\n${cue.text}\n\n`;
       }
       console.log(vtt);
       console.log(pathMetadata[i]);
