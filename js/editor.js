@@ -27,14 +27,14 @@ window.onload = function () {
       var div = document.createElement("div");
       var img = document.createElement("img");
       var bold = document.createElement("strong");
-      var br = document.createElement("br");
       var text = document.createTextNode(files[i]);
+      
+      div.className = "gallery";
+      bold.className = "desc;"
 
       img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
       img.sizes = "50%";
-      img.style.margin = "2rem";
-      img.style.border = "1px solid #ff4457";
-      bold.style.paddingLeft = "2rem";
+
       console.log("File[i] " + files[i]);
       addListenerToImg(img, files[i]);
 
@@ -42,7 +42,6 @@ window.onload = function () {
       div.appendChild(img);
       div.appendChild(bold);
       video_selector.appendChild(div);
-      video_selector.appendChild(br);
     }
   });
 }

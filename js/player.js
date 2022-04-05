@@ -25,8 +25,8 @@ const agentBio = document.querySelector("#agent-bio");
 const mapImage = document.querySelector("#map-image");
 const weaponImage = document.querySelector("#weapon-image");
 
-window.onload = function () {
-    video.mode ="hidden";
+$("document").ready(function () {
+    video.mode = "hidden";
     //call php/getFiles.php to get all the files in the folder and put them in the select element
     $.get("php/getFiles.php", function (data) {
         var files = JSON.parse(data);
@@ -34,17 +34,18 @@ window.onload = function () {
 
         //add files to video-selector
         for (var i = 0; i < files.length; i++) {
+
             var div = document.createElement("div");
             var img = document.createElement("img");
             var bold = document.createElement("strong");
-            var br = document.createElement("br");
             var text = document.createTextNode(files[i]);
+            
+            div.className = "gallery";
+            bold.className = "desc;"
 
             img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
             img.sizes = "50%";
-            img.style.margin = "2rem";
-            img.style.border = "1px solid #ff4457";
-            bold.style.paddingLeft = "2rem";
+  
             console.log("File[i] " + files[i]);
             addListenerToImg(img, files[i]);
 
@@ -52,21 +53,39 @@ window.onload = function () {
             div.appendChild(img);
             div.appendChild(bold);
             video_selector.appendChild(div);
-            video_selector.appendChild(br);
         }
+
     });
-}
+});
 
 function addListenerToImg(img, vid) {
     var video_selector = document.getElementById("video-selector");
     img.addEventListener("click", function () {
-        loadVideoType(vid);
         video_selector.hidden = true;
+        loadVideoType(vid);
     });
 }
 
+function loadVideoType(location) {
+    if (video.canPlayType) {
+        if (video.canPlayType("video/mp4")) {
+            video.src = "videos/" + location + "/" + location + ".mp4";
+            video.type = "video/mp4";
+        } else if (video.canPlayType("video/mkv")) {
+            video.src = "videos/" + location + "/" + location + ".mkv";
+            video.type = "video/mkv";
+        } else if (video.canPlayType("video/avi")) {
+            video.src = "videos/" + location + "/" + location + ".avi";
+            video.type = "video/avi";
+        }
+        startVideo();
+        video.load()
+    }
+}
+
 // main
-$("document").ready(function () {
+// $("document").ready(function () {
+function startVideo() {
     addListeners();
     document.getElementById("weapon-info").style.visibility = "visible";
     document.getElementById("player").style.visibility = "visible";
@@ -76,23 +95,9 @@ $("document").ready(function () {
 
     video.textTracks[instantInfo].mode = "showing";
     video.addEventListener("loadedmetadata", manageInstantInfo);
-});
+};
 
-function loadVideoType(location) {
-    if (video.canPlayType) {
-        if (video.canPlayType("video/mp4")) {
-            video.src = "videos/"+location+"/"+location+".mp4";
-            video.type = "video/mp4";
-        } else if (video.canPlayType("video/mkv")) {
-            video.src = "videos/"+location+"/"+location+".mkv";
-            video.type = "video/mkv";
-        } else if (video.canPlayType("video/avi")) {
-            video.src = "videos/"+location+"/"+location+".avi";
-            video.type = "video/avi";
-        }
-        video.load()
-    }
-}
+
 
 // add listeners function
 function addListeners() {
