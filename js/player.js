@@ -5,6 +5,7 @@
 const constantInfo = 0;
 const instantInfo = 1;
 const subtitles = 2;
+var currCue = 0;
 
 const video = document.querySelector("#video");
 const playButton = document.querySelector("#play");
@@ -39,13 +40,12 @@ $("document").ready(function () {
             var img = document.createElement("img");
             var bold = document.createElement("strong");
             var text = document.createTextNode(files[i]);
-            
+
             div.className = "gallery";
             bold.className = "desc;"
 
             img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
-  
-            console.log("File[i] " + files[i]);
+
             addListenerToImg(img, files[i]);
 
             bold.appendChild(text);
@@ -66,6 +66,7 @@ function addListenerToImg(img, vid) {
 }
 
 function loadVideoType(location) {
+    console.log(location)
     if (video.canPlayType) {
         if (video.canPlayType("video/mp4")) {
             video.src = "videos/" + location + "/" + location + ".mp4";
@@ -77,6 +78,9 @@ function loadVideoType(location) {
             video.src = "videos/" + location + "/" + location + ".avi";
             video.type = "video/avi";
         }
+        document.getElementById("constant-info").src = "videos/" + location + "/constant_info.vtt";
+        document.getElementById("instant-info").src = "videos/" + location + "/instant_info.vtt";
+        document.getElementById("subtitles").src = "videos/" + location + "/subtitles.vtt";
         startVideo();
         video.load()
     }
@@ -94,6 +98,7 @@ function startVideo() {
 
     video.textTracks[instantInfo].mode = "showing";
     video.addEventListener("loadedmetadata", manageInstantInfo);
+    video.addEventListener("cuechange", () => { currCue++ });
 };
 
 
@@ -135,12 +140,13 @@ function manageConstantInfo() {
 function manageInstantInfo() {
     const bpWrapper = document.querySelector("#breakpoint-wrapper");
     progressBar.style.zIndex = "2";
-    let cues = video.textTracks[instantInfo].cues;
+    cues = video.textTracks[instantInfo].cues;
     div = document.createElement("div");
     div.classList.add("breakpoint");
     div.style.width = `${(cues[0].startTime / video.duration) * progressBar.offsetWidth + 5}px`;
     div.style.zIndex = "1";
     bpWrapper.appendChild(div);
+    console.log(cues.length)
     for (let i = 0; i < cues.length; i++) {
         if (i == cues.length - 1) {
             duration = video.duration - cues[i].startTime;
@@ -149,8 +155,7 @@ function manageInstantInfo() {
         }
         div = document.createElement("div");
         div.classList.add("breakpoint");
-        div.style.width = `${(duration / video.duration) * progressBar.offsetWidth
-            }px`;
+        div.style.width = `${(duration / video.duration) * progressBar.offsetWidth}px`;
         div.style.zIndex = "1";
         if (cues[i].text.includes("Kill")) {
             div.style.borderLeft = "3px solid red";
@@ -206,7 +211,8 @@ function playButtonToggleIcon() {
 
 function forwardVideo() {
     console.log("forward");
-    video.currentTime += 10;
+    video.currentTime = cues[currCue].startTime;
+    //video.currentTime += 10;
 }
 
 function muteVideoAudio() {
