@@ -44,7 +44,6 @@ window.onload = function () {
       video_selector.appendChild(div);
       video_selector.appendChild(br);
     }
-
   });
 }
 

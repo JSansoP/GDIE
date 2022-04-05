@@ -165,3 +165,7 @@
   background: #b81803; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
+
+.hidden {
+  visibility: hidden;
+}
