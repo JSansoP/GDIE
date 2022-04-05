@@ -44,7 +44,6 @@ $("document").ready(function () {
             bold.className = "desc;"
 
             img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
-            img.sizes = "50%";
   
             console.log("File[i] " + files[i]);
             addListenerToImg(img, files[i]);

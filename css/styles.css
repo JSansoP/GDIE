@@ -1574,22 +1574,25 @@ a:hover.back-to-top {
   margin-left: -10rem;
 }
 
+
 div.gallery {
-  margin: 5px;
-  border: 1px solid #ff4457;
+  margin: 1rem;
+  border: 2px solid #ff4457;
   float: left;
-  width: 25rem;
+  width: 21rem;
 }
+
 div.gallery:hover {
-  border: 1px solid #777;
+  border: 3px solid #777;
 }
 
 div.gallery img {
-  width: 20rem;
+  width: 16rem;
   height: auto;
   margin: 2rem;
 }
 
 div.desc {
   text-align: center;
+  padding: 1rem;
 }

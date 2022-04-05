@@ -16,7 +16,7 @@ var videoName;
 var pathMetadata = [];
 
 
-window.onload = function () {
+$("document").ready(function () {
   //call php/getFiles.php to get all the files in the folder and put them in the select element
   $.get("php/getFiles.php", function (data) {
     var files = JSON.parse(data);
@@ -33,7 +33,6 @@ window.onload = function () {
       bold.className = "desc;"
 
       img.src = "videos/" + files[i] + "/" + files[i] + ".jpg";
-      img.sizes = "50%";
 
       console.log("File[i] " + files[i]);
       addListenerToImg(img, files[i]);
@@ -44,7 +43,7 @@ window.onload = function () {
       video_selector.appendChild(div);
     }
   });
-}
+});
 
 function addListenerToImg(img, vid) {
   var video_selector = document.getElementById("video-selector");
