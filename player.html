@@ -22,8 +22,9 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
-    <link href="css/video.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
+    <link href="css/player.css" rel="stylesheet">
+    
 </head>
 
 <body data-spy="scroll" data-target=".fixed-top">
@@ -59,19 +60,19 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="index.html">
-                            Explicacion 
+                            Inicio
                             <span class="sr-only">(current)</span
                         ></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="video.html">
-                            Video 
+                        <a class="nav-link page-scroll" href="player.html">
+                            Reproductor
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="editor.html">
-                            Editor metadatos 
+                            Editor
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -96,7 +97,7 @@
     <!-- end of header -->
 
     <!-- Video -->
-    <div id="video" class="basic-2">
+    <div class="basic-2">
         <div class="container-fluid">
             <div class="row">
                 <div class="nopadding col-lg-3">
@@ -110,7 +111,7 @@
                 <div class="col-lg-6 nopadding">                   
                     <!-- Reproductor -->
                     <main class="player">
-                        <video class="video" poster="images/Untitled.png">
+                        <video id="video" class="video" poster="images/Untitled.png">
                             <track src="videos/valorant/constant_info.vtt" label="constant" kind="metadata" srclang="en">
                             <track src="videos/valorant/instant_info.vtt" label="instant" kind="metadata" srclang="en">
                             <track src="videos/valorant/subtitles.vtt" label="subtitles" kind="subtitles" srclang="en">
@@ -248,7 +249,7 @@
 
     <!-- Reproductor -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
-    <script src="js/video.js" defer></script>
+    <script src="js/player.js" defer></script>
 
 </body>
 </html>

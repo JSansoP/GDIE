@@ -2,7 +2,11 @@
 //https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs
 
 // Grab DOM elements
-const video = document.querySelector(".video");
+const constantInfo = 0;
+const instantInfo = 1;
+const subtitles = 2;
+
+const video = document.querySelector("#video");
 const playButton = document.querySelector("#play");
 const playIcon = document.querySelector("#play-icon");
 const forwardButton = document.querySelector("#forward");
@@ -15,27 +19,6 @@ const subtitlesButtton = document.querySelector("#subtitles");
 const subtitlesIcon = document.querySelector("#subtitles-icon");
 const fullButton = document.querySelector("#full-screen");
 
-const constantInfo = 0;
-const instantInfo = 1;
-const subtitles = 2;
-
-// load json file
-function loadJSON(callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open("GET", "data/agents.json", true);
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-            callback(xobj.responseText);
-        }
-    };
-    xobj.send(null);
-}
-
-loadJSON(function (response) {
-    agentsData = JSON.parse(response).agents;
-});
-
 const agentImage = document.querySelector("#agent-image");
 const agentName = document.querySelector("#agent-name");
 const agentBio = document.querySelector("#agent-bio");
@@ -44,23 +27,7 @@ const weaponImage = document.querySelector("#weapon-image");
 
 // main
 $("document").ready(function () {
-    if(video.canPlayType){
-        console.log("canPlay")
-        if(video.canPlayType("video/mp4")){
-            video.src = "videos/sample/sample.mp4";
-            video.type= "video/mp4";
-            console.log("mp4")
-            // video.src = "videos/valorant/valorant.mp4";
-        } else if(video.canPlayType("video/mkv")){
-            video.src = "videos/valorant/valorant.mkv";
-            video.type= "video/mkv";
-            console.log("mkv")
-        } else if(video.canPlayType("video/avi")){
-            video.src = "videos/valorant/valorant.avi";
-            video.type= "video/avi";
-            console.log("avi")
-        }
-    }
+    loadVideoType()
     addListeners();
     video.textTracks[constantInfo].mode = "showing";
     video.textTracks[constantInfo].addEventListener("cuechange", manageConstantInfo);
@@ -68,6 +35,35 @@ $("document").ready(function () {
     video.textTracks[instantInfo].mode = "showing";
     video.addEventListener("loadedmetadata", manageInstantInfo);
 });
+
+function loadVideoType() {
+    if (video.canPlayType) {
+        if (video.canPlayType("video/mp4")) {
+            video.src = "videos/valorant/valorant.mp4";
+            video.type = "video/mp4";
+        } else if (video.canPlayType("video/mkv")) {
+            video.src = "videos/valorant/valorant.mkv";
+            video.type = "video/mkv";
+        } else if (video.canPlayType("video/avi")) {
+            video.src = "videos/valorant/valorant.avi";
+            video.type = "video/avi";
+        }
+        video.load()
+    }
+}
+
+// add listeners function
+function addListeners() {
+    video.addEventListener("timeupdate", updateVideoProgress);
+    video.addEventListener("click", playPauseVideo);
+    playButton.addEventListener("click", playPauseVideo);
+    forwardButton.addEventListener("click", forwardVideo);
+    muteButton.addEventListener("click", muteVideoAudio);
+    volumeSlider.addEventListener("mousemove", changeVolume);
+    progressBar.addEventListener("change", setVideoProgress);
+    subtitlesButtton.addEventListener("click", toggleSubtitles);
+    fullButton.addEventListener("click", fullScreen);
+}
 
 
 function manageConstantInfo() {
@@ -121,21 +117,7 @@ function manageInstantInfo() {
     }
 }
 
-// add listeners function
-function addListeners() {
-    video.addEventListener("timeupdate", updateVideoProgress);
-    video.addEventListener("click", playPauseVideo);
-    playButton.addEventListener("click", playPauseVideo);
-    forwardButton.addEventListener("click", forwardVideo);
-    muteButton.addEventListener("click", muteVideoAudio);
-    volumeSlider.addEventListener("mousemove", changeVolume);
-    progressBar.addEventListener("change", setVideoProgress);
-    subtitlesButtton.addEventListener("click", toggleSubtitles);
-    fullButton.addEventListener("click", fullScreen);
-}
-
 // Utility functions
-
 function toggleSubtitles() {
     if (video.textTracks[subtitles].mode == "showing") {
         video.textTracks[subtitles].mode = "hidden";
@@ -233,3 +215,20 @@ function fullScreen() {
         video.msRequestFullscreen();
     }
 }
+
+// load json file
+function loadJSON(callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open("GET", "data/agents.json", true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+loadJSON(function (response) {
+    agentsData = JSON.parse(response).agents;
+});
