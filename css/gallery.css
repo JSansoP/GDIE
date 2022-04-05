@@ -1,0 +1,38 @@
+#video-selector{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background-color: rgb(227, 240, 230);
+    border: 0.25rem solid #ff4457;
+    border-radius: 0.5rem;
+    overflow-y: scroll;
+    width: 65vw;
+  }
+  
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: 2px solid #ff4457;
+    width: 20rem;
+  }
+  
+  .gallery:hover {
+    outline: 2px solid #777;
+  }
+  
+  .gallery img {
+    width: 100%;
+    padding: 2rem;
+  }
+  
+  .desc {
+    text-align: center;
+    padding: 1rem;
+  }
+  

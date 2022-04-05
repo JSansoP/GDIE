@@ -191,37 +191,3 @@
 .hidden {
   visibility: hidden;
 }
-
-div.gallery {
-  margin: 1rem;
-  border: 2px solid #ff4457;
-  float: left;
-  width: 21rem;
-}
-
-div.gallery:hover {
-  border: 3px solid #777;
-}
-
-div.gallery img {
-  width: 16rem;
-  height: auto;
-  margin: 2rem;
-}
-
-div.desc {
-  text-align: center;
-  padding: 1rem;
-}
-
-#video-selector {
-  display: inline-block;
-  padding: 1rem 2rem 1rem 2rem;
-  background-color: rgb(227, 240, 230);
-  border: 0.25rem solid #ff4457;
-  border-radius: 0.5rem;
-  overflow-y: scroll;
-  height: 50rem;
-  width: 75rem;
-  margin-left: -10rem;
-}
